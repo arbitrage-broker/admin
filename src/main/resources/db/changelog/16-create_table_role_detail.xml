@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                      http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.5.xsd"
+        objectQuotingStrategy="QUOTE_ONLY_RESERVED_WORDS">
+    <changeSet id="16-1" author="administrator">
+        <createSequence incrementBy="1" sequenceName="seq_role_detail" startValue="1"/>
+    </changeSet>
+    <changeSet id="16-2" author="administrator">
+        <createTable tableName="tbl_role_detail">
+            <column name="id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="pk_role_detail"/>
+            </column>
+            <column name="created_by" type="VARCHAR(255)"/>
+            <column name="created_date" type="TIMESTAMP"/>
+            <column name="modified_by" type="VARCHAR(255)"/>
+            <column name="modified_date" type="TIMESTAMP"/>
+            <column defaultValueNumeric="0" name="version" type="integer"/>
+            <column name="role_id" type="BIGINT"/>
+            <column name="network" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="currency" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="address" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="description" type="VARCHAR(500)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet id="16-3" author="administrator">
+        <createTable tableName="tbl_role_detail_aud">
+            <column name="id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="pk_role_detail_aud"/>
+            </column>
+            <column name="created_by" type="VARCHAR(255)"/>
+            <column name="created_date" type="DATETIME"/>
+            <column name="modified_by" type="VARCHAR(255)"/>
+            <column name="modified_date" type="DATETIME"/>
+            <column name="role_id" type="BIGINT"/>
+            <column name="network" type="VARCHAR(255)"/>
+            <column name="currency" type="VARCHAR(255)"/>
+            <column name="address" type="VARCHAR(255)"/>
+            <column name="description" type="VARCHAR(500)"/>
+            <column name="rev" type="BIGINT">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="pk_role_detail_aud"/>
+            </column>
+            <column name="revtype" type="tinyint"/>
+        </createTable>
+    </changeSet>
+    <changeSet id="16-4" author="administrator">
+        <addUniqueConstraint columnNames="role_id,currency,network" constraintName="uc_role_detail_currency_network" tableName="tbl_role_detail"/>
+    </changeSet>
+    <changeSet id="16-5" author="administrator">
+        <addForeignKeyConstraint baseColumnNames="rev" baseTableName="tbl_role_detail_aud"
+                                 constraintName="FK_ROLE_DETAIL_AUD_ON_REV" referencedColumnNames="rev"
+                                 referencedTableName="revinfo"/>
+        <addForeignKeyConstraint baseColumnNames="role_id" baseTableName="tbl_role_detail"
+                                 constraintName="FK_ROLE_DETAIL_ON_ROLE" referencedColumnNames="id"
+                                 referencedTableName="tbl_role"/>
+    </changeSet>
+</databaseChangeLog>

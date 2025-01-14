@@ -1,0 +1,11 @@
+id, created_by, created_date, modified_by, modified_date, version, role_id, network, currency, address,description
+1,administrator,2024-12-25 12:02:09.000000,administrator,2024-12-25 12:02:11.000000,0,3,TRC20,USDT,TPFef2kAjeQbYmfCv2QtjmD3D5JvG7rLMH,Send only&nbsp;<strong>Tether USDT (TRC20)</strong>&nbsp;to this address.
+2,administrator,2024-12-25 12:02:09.000000,administrator,2024-12-25 12:02:11.000000,0,4,TRC20,USDT,TXXyhmKFhBZ4zna9jWmbnvE3kLiVH8teY8,Send only&nbsp;<strong>Tether USDT (TRC20)</strong>&nbsp;to this address.
+3,administrator,2024-12-25 12:02:09.000000,administrator,2024-12-25 12:02:11.000000,0,3,TRC20,TRX,TPFef2kAjeQbYmfCv2QtjmD3D5JvG7rLMH,Send only&nbsp;<strong>Tron TRX (TRC20)</strong>&nbsp;to this address.
+4,administrator,2024-12-25 12:02:09.000000,administrator,2024-12-25 12:02:11.000000,0,4,TRC20,TRX,TXXyhmKFhBZ4zna9jWmbnvE3kLiVH8teY8,Send only&nbsp;<strong>Tron TRX (TRC20)</strong>&nbsp;to this address.
+5,administrator,2024-12-25 12:02:09.000000,administrator,2024-12-25 12:02:11.000000,0,4,BEP20,USDT,0xB704C7689d8AeC26a17857037dA95Ff4D9BABbaA,Send only&nbsp;<strong>Tether USDT (BEP20)</strong>&nbsp;to this address.
+6,administrator,2024-12-25 12:02:09.000000,administrator,2024-12-25 12:02:11.000000,0,4,BEP20,BNB,0xB704C7689d8AeC26a17857037dA95Ff4D9BABbaA,Send only&nbsp;<strong>BNB Smart Chain (BEP20)</strong>&nbsp;to this address.
+7,administrator,2024-12-25 12:02:09.000000,administrator,2024-12-25 12:02:11.000000,0,4,BEP20,BUSD,0xB704C7689d8AeC26a17857037dA95Ff4D9BABbaA,Send only&nbsp;<strong>BUSD Token (BEP20)</strong>&nbsp;to this address.
+8,administrator,2024-12-25 12:02:09.000000,administrator,2024-12-25 12:02:11.000000,0,3,BEP20,USDT,0x38F446de3D4203c19b7091aad15A5CB24170B165,Send only&nbsp;<strong>Tether USDT (BEP20)</strong>&nbsp;to this address.
+9,administrator,2024-12-25 12:02:09.000000,administrator,2024-12-25 12:02:11.000000,0,3,BEP20,BNB,0x38F446de3D4203c19b7091aad15A5CB24170B165,Send only&nbsp;<strong>BNB Smart Chain (BEP20)</strong>&nbsp;to this address.
+10,administrator,2024-12-25 12:02:09.000000,administrator,2024-12-25 12:02:11.000000,0,3,BEP20,BUSD,0x38F446de3D4203c19b7091aad15A5CB24170B165,Send only&nbsp;<strong>BUSD Token (BEP20)</strong>&nbsp;to this address.

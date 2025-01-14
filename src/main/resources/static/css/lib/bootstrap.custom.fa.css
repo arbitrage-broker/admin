@@ -1,0 +1,23 @@
+
+.coloredGrid .row {
+    margin: 0;
+    display: flex;
+}
+
+.coloredGrid .row > div {
+    padding: 10px;
+    margin: 5px 0 5px 0px;
+    flex: 1;
+}
+
+.coloredGrid .row > div:nth-child(odd) {
+    background-color: #f0f1f2;
+}
+
+.coloredGrid .row > div:nth-child(even) {
+    background-color: #f7f9fa;
+}
+.center-middle {
+    text-align: center;
+    vertical-align: middle !important;
+}

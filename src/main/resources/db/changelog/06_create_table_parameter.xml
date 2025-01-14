@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.4.xsd">
+
+    <changeSet id="06-1" author="administrator">
+        <createSequence incrementBy="1" sequenceName="seq_parameter_group" startValue="1"/>
+        <createSequence incrementBy="1" sequenceName="seq_parameter" startValue="1"/>
+    </changeSet>
+    <changeSet id="06-2" author="administrator">
+        <createTable tableName="tbl_parameter_group">
+            <column name="id" type="bigint">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="pk_parameter_group"/>
+            </column>
+            <column name="created_by" type="VARCHAR(255)"/>
+            <column name="created_date" type="TIMESTAMP"/>
+            <column name="modified_by" type="VARCHAR(255)"/>
+            <column name="modified_date" type="TIMESTAMP"/>
+            <column defaultValueNumeric="0" name="version" type="integer"/>
+            <column name="title" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="code" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="deleted" type="boolean" defaultValue="0"></column>
+        </createTable>
+    </changeSet>
+    <changeSet id="06-3" author="administrator">
+        <createTable tableName="tbl_parameter_group_aud">
+            <column name="id" type="bigint">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="pk_parameter_group_aud"/>
+            </column>
+            <column name="created_by" type="VARCHAR(255)"/>
+            <column name="created_date" type="TIMESTAMP"/>
+            <column name="modified_by" type="VARCHAR(255)"/>
+            <column name="modified_date" type="TIMESTAMP"/>
+            <column defaultValueNumeric="0" name="version" type="integer"/>
+            <column name="title" type="VARCHAR(255)">
+            </column>
+            <column name="code" type="VARCHAR(255)">
+            </column>
+            <column name="deleted" type="boolean" defaultValue="0"></column>
+            <column name="rev" type="BIGINT">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="pk_parameter_group_aud"/>
+            </column>
+            <column name="revtype" type="tinyint"/>
+        </createTable>
+    </changeSet>
+    <changeSet id="06-4" author="administrator">
+        <createTable tableName="tbl_parameter">
+            <column name="id" type="bigint">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="pk_parameter"/>
+            </column>
+            <column name="created_by" type="VARCHAR(255)"/>
+            <column name="created_date" type="TIMESTAMP"/>
+            <column name="modified_by" type="VARCHAR(255)"/>
+            <column name="modified_date" type="TIMESTAMP"/>
+            <column defaultValueNumeric="0" name="version" type="integer"/>
+            <column name="title" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="code" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="value" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="parameter_group_id" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+            <column name="deleted" type="boolean" defaultValue="0"></column>
+        </createTable>
+    </changeSet>
+    <changeSet id="06-5" author="administrator">
+        <createTable tableName="tbl_parameter_aud">
+            <column name="id" type="bigint">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="pk_parameter_aud"/>
+            </column>
+            <column name="created_by" type="VARCHAR(255)"/>
+            <column name="created_date" type="TIMESTAMP"/>
+            <column name="modified_by" type="VARCHAR(255)"/>
+            <column name="modified_date" type="TIMESTAMP"/>
+            <column defaultValueNumeric="0" name="version" type="integer"/>
+            <column name="title" type="VARCHAR(255)">
+            </column>
+            <column name="code" type="VARCHAR(255)">
+            </column>
+            <column name="value" type="VARCHAR(255)">
+            </column>
+            <column name="parameter_group_id" type="bigint">
+            </column>
+            <column name="deleted" type="boolean" defaultValue="0"></column>
+            <column name="rev" type="BIGINT">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="pk_parameter_aud"/>
+            </column>
+            <column name="revtype" type="tinyint"/>
+        </createTable>
+    </changeSet>
+    <changeSet id="06-6" author="administrator">
+        <addForeignKeyConstraint baseColumnNames="parameter_group_id" baseTableName="tbl_parameter"
+                                 constraintName="fk_parameter_group_id" referencedColumnNames="id"
+                                 referencedTableName="tbl_parameter_group"/>
+
+        <addUniqueConstraint columnNames="code" constraintName="uc_code_parameter" tableName="tbl_parameter_group"/>
+        <addUniqueConstraint columnNames="code,parameter_group_id" constraintName="uc_code_parameter_group" tableName="tbl_parameter"/>
+    </changeSet>
+</databaseChangeLog>

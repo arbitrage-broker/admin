@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.4.xsd">
+    <changeSet id="18-1" author="administrator">
+        <createSequence incrementBy="1" sequenceName="seq_telegram" startValue="1"/>
+    </changeSet>
+    <changeSet id="18-2" author="administrator">
+        <createTable tableName="tbl_telegram">
+            <column name="id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="pk_telegram"/>
+            </column>
+            <column name="created_by" type="VARCHAR(255)"/>
+            <column name="created_date" type="TIMESTAMP"/>
+            <column name="modified_by" type="VARCHAR(255)"/>
+            <column name="modified_date" type="TIMESTAMP"/>
+            <column defaultValueNumeric="0" name="version" type="integer"/>
+            <column name="chat_id" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="phone" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="role" type="VARCHAR(255)"/>
+        </createTable>
+    </changeSet>
+    <changeSet id="18-3" author="administrator">
+        <addUniqueConstraint columnNames="chat_id" constraintName="uc_telegram_chat_id" tableName="tbl_telegram"/>
+    </changeSet>
+</databaseChangeLog>

@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{fragments/master}">
+
+<th:block layout:fragment="header">
+    <style>
+        .panel_toolbox {
+            min-width: 0;
+        }
+    </style>
+</th:block>
+<th:block layout:fragment="content">
+    <input type="hidden" value="/api/v1/exchange" id="requestMapping"/>
+
+    <div class="row">
+        <div class="col-md-12 col-sm-12 col-xs-12">
+            <div class="x_panel">
+                <div class="x_title">
+                    <h2 th:text="#{searchA} + ' ' + #{exchange}"></h2>
+                    <ul class="nav navbar-right panel_toolbox">
+                        <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a></li>
+                    </ul>
+                    <div class="clearfix"></div>
+                </div>
+                <div class="x_content">
+                    <form>
+                        <input type="hidden" value="" id="hdf_id"/>
+                        <div class="row">
+                            <div class="col-md-6 form-group">
+                                <label th:text="#{name}"></label>
+                                <input autofocus class="form-control" tabindex="1" type="text" th:placeholder="#{name}"
+                                       th:title="#{name}" id="name"/>
+                            </div>
+                            <div class="col-md-6 form-group">
+                                <label th:text="#{logo}"></label>
+                                <input class="form-control" tabindex="2" type="text" th:placeholder="#{logo}"
+                                       th:title="#{logo}" id="logo"/>
+                            </div>
+                        </div>
+                        <div class="ln_solid"></div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <button tabindex="5" type="submit" class="btn btn-primary"><i
+                                        class="fa fa-save"></i>&nbsp;<span th:text="#{save}"></span></button>
+                                <button tabindex="6" type="button" class="btn btn-default" onclick="clearAll();"><i
+                                        class="fa fa-eraser"></i>&nbsp;<span th:text="#{clean}"></span></button>
+                                <button tabindex="7" type="button" class="btn btn-info"
+                                        onclick="$.publish('reloadTable')">
+                                    <i class="fa fa-search"></i>&nbsp;<span th:text="#{search}"></span></button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12 col-sm-12 col-xs-12">
+            <div class="x_panel">
+                <div class="x_title">
+                    <h2 th:text="#{table} + ' ' + #{exchange}"></h2>
+                    <ul class="nav navbar-right panel_toolbox">
+                        <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a></li>
+                    </ul>
+                    <div class="clearfix"></div>
+                </div>
+                <div class="x_content">
+                    <table class="table table-striped table-bordered table-hover table-condensed dt-responsive nowrap" width="100%">
+                        <thead>
+                        <tr>
+                            <th th:text="#{name}"></th>
+                            <th th:text="#{logo}"></th>
+                            <th th:text="#{modifyDate}"></th>
+                            <th><i class="fa fa-wrench"></i></th>
+                        </tr>
+                        </thead>
+                        <tfoot>
+                        <tr>
+                            <th th:text="#{name}"></th>
+                            <th th:text="#{logo}"></th>
+                            <th th:text="#{modifyDate}"></th>
+                            <th><i class="fa fa-wrench"></i></th>
+                        </tr>
+                        </tfoot>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</th:block>
+
+<th:block layout:fragment="footer">
+    <script type="text/javascript" th:src="@{/js/script/exchange.js}"></script>
+</th:block>
+</html>

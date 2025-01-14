@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.4.xsd">
+
+    <changeSet id="14-1" author="administrator">
+        <createSequence incrementBy="1" sequenceName="seq_notification" startValue="1"/>
+    </changeSet>
+    <changeSet id="14-2" author="administrator">
+        <createTable tableName="tbl_notification">
+            <column name="id" type="bigint">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="pk_notification"/>
+            </column>
+            <column name="created_by" type="VARCHAR(255)"/>
+            <column name="created_date" type="TIMESTAMP"/>
+            <column name="modified_by" type="VARCHAR(255)"/>
+            <column name="modified_date" type="TIMESTAMP"/>
+            <column defaultValueNumeric="0" name="version" type="integer"/>
+            <column name="sender" type="uuid">
+                <constraints nullable="false"/>
+            </column>
+            <column name="recipient" type="uuid">
+                <constraints nullable="false"/>
+            </column>
+            <column name="subject" type="varchar(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="body" type="text">
+                <constraints nullable="false"/>
+            </column>
+            <column name="is_read" type="boolean" defaultValue="false">
+                <constraints nullable="false"/>
+            </column>
+            <column name="deleted" type="boolean" defaultValue="false">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet id="14-3" author="administrator">
+        <createTable tableName="tbl_notification_aud">
+            <column name="id" type="bigint">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="pk_notification_aud"/>
+            </column>
+            <column name="created_by" type="VARCHAR(255)"/>
+            <column name="created_date" type="TIMESTAMP"/>
+            <column name="modified_by" type="VARCHAR(255)"/>
+            <column name="modified_date" type="TIMESTAMP"/>
+            <column defaultValueNumeric="0" name="version" type="integer"/>
+            <column name="sender" type="uuid">
+            </column>
+            <column name="recipient" type="uuid">
+            </column>
+            <column name="subject" type="varchar(255)">
+            </column>
+            <column name="body" type="text">
+            </column>
+            <column name="is_read" type="boolean" defaultValue="false">
+            </column>
+            <column name="deleted" type="boolean" defaultValue="false">
+            </column>
+            <column name="rev" type="BIGINT">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="pk_notification_aud"/>
+            </column>
+            <column name="revtype" type="tinyint"/>
+        </createTable>
+    </changeSet>
+    <changeSet id="14-5" author="administrator">
+        <addForeignKeyConstraint baseColumnNames="sender" baseTableName="tbl_notification"
+                                 constraintName="fk_tbl_notification_on_sender" referencedColumnNames="id"
+                                 referencedTableName="tbl_user"/>
+        <addForeignKeyConstraint baseColumnNames="recipient" baseTableName="tbl_notification"
+                                 constraintName="fk_tbl_notification_on_recipient" referencedColumnNames="id"
+                                 referencedTableName="tbl_user"/>
+    </changeSet>
+    <changeSet id="14-6" author="administrator">
+        <addColumn tableName="tbl_notification">
+            <column name="role" type="VARCHAR(255)" defaultValue="ROLE_SUPER_WISER">
+                <constraints nullable="false"></constraints>
+            </column>
+        </addColumn>
+        <addColumn tableName="tbl_notification_aud">
+            <column name="role" type="VARCHAR(255)"/>
+        </addColumn>
+    </changeSet>
+</databaseChangeLog>

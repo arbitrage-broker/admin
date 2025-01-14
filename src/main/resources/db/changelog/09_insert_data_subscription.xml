@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                      http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.5.xsd"
+        objectQuotingStrategy="QUOTE_ONLY_RESERVED_WORDS">
+
+    <changeSet id="09-1" author="administrator">
+        <loadData file="db/data/tbl_subscription_package.csv" tableName = "tbl_subscription_package" >
+            <column header="id" name="id" type="bigint" />
+            <column header="created_by" name="created_by" type="VARCHAR(255)"/>
+            <column header="created_date" name="created_date" type="TIMESTAMP"/>
+            <column header="modified_by" name="modified_by" type="VARCHAR(255)"/>
+            <column header="modified_date" name="modified_date" type="TIMESTAMP"/>
+            <column header="version" name="version" type="integer"/>
+            <column header="name" name="name" type="VARCHAR(250)"/>
+            <column header="duration" name="duration" type="integer"/>
+            <column header="order_count" name="order_count" type="integer"/>
+            <column header="price" name="price" type="NUMBER(19, 6)"/>
+            <column header="max_price" name="max_price" type="NUMBER(19, 6)"/>
+            <column header="currency" name="currency" type="VARCHAR(50)"/>
+            <column header="status" name="status" type="VARCHAR(50)"/>
+            <column header="description" name="description" type="VARCHAR(1000)"/>
+            <column header="min_trading_reward" name="min_trading_reward" type="float"/>
+            <column header="max_trading_reward" name="max_trading_reward" type="float"/>
+            <column header="parent_referral_bonus" name="parent_referral_bonus" type="float"/>
+            <column header="withdrawal_duration_per_day" name="withdrawal_duration_per_day" type="int"/>
+            <column header="user_profit_percentage" name="user_profit_percentage" type="int"/>
+            <column header="user_profit_percentage" name="user_profit_percentage" type="int"/>
+            <column header="site_profit_percentage" name="site_profit_percentage" type="int"/>
+        </loadData>
+    </changeSet>
+
+    <changeSet id="09-2" author="administrator">
+        <loadData file="db/data/tbl_subscription.csv" tableName = "tbl_subscription" >
+            <column header="id" name="id" type="bigint" />
+            <column header="created_by" name="created_by" type="VARCHAR(255)"/>
+            <column header="created_date" name="created_date" type="TIMESTAMP"/>
+            <column header="modified_by" name="modified_by" type="VARCHAR(255)"/>
+            <column header="modified_date" name="modified_date" type="TIMESTAMP"/>
+            <column header="version" name="version" type="integer"/>
+            <column header="user_id" name="user_id" type="UUID"/>
+            <column header="subscription_package_id" name="subscription_package_id" type="bigint"/>
+            <column header="wallet_id" name="wallet_id" type="bigint"/>
+            <column header="expire_date" name="expire_date" type="TIMESTAMP"/>
+            <column header="final_price" name="final_price" type="NUMBER(19, 6)"/>
+            <column header="deleted" name="deleted" type="boolean"/>
+        </loadData>
+    </changeSet>
+    <changeSet id="09-3" author="administrator">
+        <loadData file="db/data/tbl_subscription_package_detail.csv" tableName = "tbl_subscription_package_detail" >
+            <column header="id" name="id" type="bigint" />
+            <column header="created_by" name="created_by" type="VARCHAR(255)"/>
+            <column header="created_date" name="created_date" type="TIMESTAMP"/>
+            <column header="modified_by" name="modified_by" type="VARCHAR(255)"/>
+            <column header="modified_date" name="modified_date" type="TIMESTAMP"/>
+            <column header="version" name="version" type="integer"/>
+            <column header="subscription_package_id" name="subscription_package_id" type="bigint"/>
+            <column header="amount" name="amount" type="NUMBER(19, 6)"/>
+            <column header="min_profit" name="min_profit" type="NUMBER(19, 6)"/>
+            <column header="max_profit" name="max_profit" type="NUMBER(19, 6)"/>
+        </loadData>
+    </changeSet>
+
+    <changeSet id="09-4" author="administrator">
+        <sql dbms="postgresql">select setval('seq_subscription_package', max(id)+1) from tbl_subscription_package</sql>
+        <sql dbms="h2">alter sequence seq_subscription_package restart with (select max(id)+1 from tbl_subscription_package)</sql>
+
+        <sql dbms="postgresql">select setval('seq_subscription', max(id)+1) from tbl_subscription</sql>
+        <sql dbms="h2">alter sequence seq_subscription restart with (select max(id)+1 from tbl_subscription)</sql>
+
+        <sql dbms="postgresql">select setval('seq_subscription_package_detail', max(id)+1) from tbl_subscription_package_detail</sql>
+        <sql dbms="h2">alter sequence seq_subscription_package_detail restart with (select max(id)+1 from tbl_subscription_package_detail)</sql>
+    </changeSet>
+</databaseChangeLog>

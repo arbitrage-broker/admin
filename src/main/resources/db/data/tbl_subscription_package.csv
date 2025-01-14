@@ -1,0 +1,7 @@
+id,created_by,created_date,modified_by,modified_date,version,name,duration,order_count,price,max_price,currency,status,description,min_trading_reward,max_trading_reward,parent_referral_bonus,withdrawal_duration_per_day,user_profit_percentage,site_profit_percentage
+1,administrator,2024-08-03 20:01:11.000000,administrator,2024-08-03 20:01:34.000000,0,Silver,-1,2,50.00,499.99,USDT,Active,Silver plan with maximum 2 arbitrage orders,0.0012,0.037,1,90,20,10
+2,administrator,2024-08-03 20:01:11.000000,administrator,2024-08-03 20:01:34.000000,0,Gold,-1,3,500.00,1999.99,USDT,Active,Gold plan with maximum 3 arbitrage orders,0.0036,0.11,2.5,90,50,40
+3,arbitrageAdmin,2024-11-25 04:26:03.389129,arbitrageAdmin,2024-11-26 05:34:16.424448,2,Diamond,-1,4,2000.000000,4999.999,USDT,Active,,0.019999999552965164,0.6499999761581421,7,180,60,40
+4,arbitrageAdmin,2024-11-25 04:40:49.306507,arbitrageAdmin,2024-11-26 06:09:05.283397,4,Arbitrage VIP1,-1,6,5000.000000,9999.999,USDT,Active,,0.09000000357627869,1.5,12,180,70,30
+5,arbitrageAdmin,2024-11-25 04:52:34.358156,arbitrageAdmin,2024-11-26 06:09:40.713896,4,Arbitrage VIP2,-1,8,10000.000000,99999.999,USDT,Active,,0.3499999940395355,12.5,20,180,80,20
+

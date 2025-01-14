@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sec="http://www.w3.org/1999/xhtml"
+      layout:decorate="~{fragments/master}">
+
+<th:block layout:fragment="header">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/lib/select2.min.css}"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/lib/select2-bootstrap.css}"/>
+    <script type="text/javascript" th:src="@{/js/lib/select2.min.js}"></script>
+    <script type="text/javascript" th:src="@{/js/messages/select2.fa.js}"></script>
+    <style>
+        .panel_toolbox {
+            min-width: 0;
+        }
+    </style>
+</th:block>
+<th:block layout:fragment="content">
+    <input type="hidden" value="/api/v1/wallet" id="requestMapping"/>
+
+    <div class="row">
+        <div class="col-md-12 col-sm-12 col-xs-12">
+            <div class="x_panel">
+                <div class="x_title">
+                    <h2 th:text="#{searchA} + ' ' + #{wallet}"></h2>
+                    <ul class="nav navbar-right panel_toolbox">
+                        <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a></li>
+                    </ul>
+                    <div class="clearfix"></div>
+                </div>
+                <div class="x_content">
+                    <form>
+                        <input type="hidden" value="" id="hdf_id"/>
+                        <div class="row">
+                            <div class="col-md-6 form-group">
+                                <label th:text="#{network}"></label>
+                                <select class="form-control" th:id="network" th:title="#{network}" tabindex="1" autofocus>
+                                    <option value="" th:text="#{network}" selected ></option>
+                                </select>
+                            </div>
+                            <div class="col-md-6 form-group">
+                                <label th:text="#{currency}"></label>
+                                <select class="form-control" th:id="currency" th:title="#{currency}" tabindex="2">
+                                    <option value="" th:text="#{currency}" selected ></option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6 form-group">
+                                <label th:text="#{amountInUSD}"></label>
+                                <input autofocus class="form-control" tabindex="3" type="text" th:placeholder="#{amountInUSD}"
+                                       th:title="#{amountInUSD}" id="amount"/>
+                            </div>
+                            <div class="col-md-6 form-group">
+                                <label th:text="#{actualAmount}"></label>
+                                <input autofocus class="form-control" tabindex="4" type="text" th:placeholder="#{actualAmount}"
+                                       th:title="#{actualAmount}" id="actualAmount"/>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6 form-group">
+                                <label th:text="#{transactionType}"></label>
+                                <select class="form-control" th:id="transactionType" th:title="#{transactionType}" tabindex="5">
+                                    <option value="" th:text="#{transactionType}" selected ></option>
+                                </select>
+                            </div>
+                            <div class="col-md-6 form-group">
+                                <label th:text="#{transactionHash}"></label>
+                                <input class="form-control" tabindex="6" type="text" th:placeholder="#{transactionHash}"
+                                       th:title="#{transactionHash}" id="transactionHash"/>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6 form-group">
+                                <label th:text="#{user}"></label>
+                                <th:block th:replace="fragments/select2 :: select2('7',#{user}, 'user', '/api/v1/user/findAllSelect','{title:params.term}',false,null)"></th:block>
+                            </div>
+                            <div class="col-md-6 form-group">
+                                <label th:text="#{address}"></label>
+                                <input class="form-control" tabindex="8" type="text" th:placeholder="#{address}"
+                                       th:title="#{address}" id="address"/>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6 form-group">
+                                <label th:text="#{status}"></label>
+                                <select class="form-control" th:id="status" th:title="#{status}" tabindex="9">
+                                    <option value="" th:text="#{status}" selected></option>
+                                </select>
+                            </div>
+                            <div class="col-md-6 form-group" sec:authorize="hasRole('ADMIN')">
+                                <label th:text="#{role}"></label>
+                                <th:block th:replace="fragments/select2 :: select2('10',#{user}, 'role', '/api/v1/role/findAllSelect','{role:params.term}',false,null)"></th:block>
+                            </div>
+                        </div>
+                        <div class="ln_solid"></div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <button tabindex="11" type="submit" class="btn btn-primary"><i
+                                        class="fa fa-save"></i>&nbsp;<span th:text="#{save}"></span></button>
+                                <button tabindex="12" type="button" class="btn btn-default" onclick="clearAll();"><i
+                                        class="fa fa-eraser"></i>&nbsp;<span th:text="#{clean}"></span></button>
+                                <button tabindex="13" type="button" class="btn btn-info"
+                                        onclick="$.publish('reloadTable')">
+                                    <i class="fa fa-search"></i>&nbsp;<span th:text="#{search}"></span></button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12 col-sm-12 col-xs-12">
+            <div class="x_panel">
+                <div class="x_title">
+                    <h2 th:text="#{table} + ' ' + #{wallet}"></h2>
+                    <ul class="nav navbar-right panel_toolbox">
+                        <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a></li>
+                    </ul>
+                    <div class="clearfix"></div>
+                </div>
+                <div class="x_content">
+                    <table class="table table-striped table-bordered table-hover table-condensed dt-responsive nowrap" width="100%">
+                        <thead>
+                        <tr>
+                            <th th:text="#{amountInUSD}"></th>
+                            <th th:text="#{actualAmount}"></th>
+                            <th th:text="#{network}"></th>
+                            <th th:text="#{currency}"></th>
+                            <th th:text="#{transactionType}"></th>
+                            <th th:text="#{transactionHash}"></th>
+                            <th th:text="#{address}"></th>
+                            <th th:text="#{user}"></th>
+                            <th th:text="#{status}"></th>
+                            <th th:text="#{modifyDate}"></th>
+                            <th><i class="fa fa-wrench"></i></th>
+                        </tr>
+                        </thead>
+                        <tfoot>
+                        <tr>
+                            <th th:text="#{amountInUSD}"></th>
+                            <th th:text="#{actualAmount}"></th>
+                            <th th:text="#{network}"></th>
+                            <th th:text="#{currency}"></th>
+                            <th th:text="#{transactionType}"></th>
+                            <th th:text="#{transactionHash}"></th>
+                            <th th:text="#{address}"></th>
+                            <th th:text="#{user}"></th>
+                            <th th:text="#{status}"></th>
+                            <th th:text="#{modifyDate}"></th>
+                            <th><i class="fa fa-wrench"></i></th>
+                        </tr>
+                        </tfoot>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</th:block>
+
+<th:block layout:fragment="footer">
+    <script type="text/javascript" th:src="@{/js/script/wallet.js}"></script>
+</th:block>
+</html>

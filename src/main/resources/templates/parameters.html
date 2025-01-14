@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{fragments/master}">
+
+<th:block layout:fragment="header">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/lib/select2.min.css}"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/lib/select2-bootstrap.css}"/>
+    <style>
+        .panel_toolbox {
+            min-width: 0;
+        }
+    </style>
+    <script type="text/javascript" th:src="@{/js/lib/select2.min.js}"></script>
+    <script type="text/javascript" th:src="@{/js/messages/select2.fa.js}"></script>
+</th:block>
+<th:block layout:fragment="content">
+    <input type="hidden" value="api/v1/parameter" id="requestMapping"/>
+
+    <div class="row">
+        <div class="col-md-12 col-sm-12 col-xs-12">
+            <div class="x_panel">
+                <div class="x_title">
+                    <h2 th:text="#{searchA} + ' ' + #{parameters}"></h2>
+                    <ul class="nav navbar-right panel_toolbox">
+                        <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a></li>
+                    </ul>
+                    <div class="clearfix"></div>
+                </div>
+                <div class="x_content">
+                    <form>
+                        <input type="hidden" value="" id="hdf_id"/>
+                        <div class="row">
+                            <div class="col-md-6 form-group">
+                                <label th:text="#{code}"></label>
+                                <input autofocus class="form-control" tabindex="1" type="text" th:placeholder="#{code}"
+                                       th:title="#{code}" id="code"/>
+                            </div>
+                            <div class="col-md-6 form-group">
+                                <label th:text="#{title}"></label>
+                                <input  class="form-control" tabindex="2" type="text" th:placeholder="#{title}"
+                                       th:title="#{title}" id="title"/>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6 form-group">
+                                <label th:text="#{value}"></label>
+                                <input class="form-control" tabindex="3" type="text" th:placeholder="#{value}"
+                                       th:title="#{value}" id="value"/>
+                            </div>
+                            <div class="col-md-6 form-group">
+                                <label th:text="#{parameterGroup}"></label>
+                                <th:block
+                                        th:replace="fragments/select2 :: select2('4',#{parameterGroup}, 'parameterGroup', 'api/v1/parameterGroup/findAllSelect','{title:params.term}',false,null)"></th:block>
+                            </div>
+                        </div>
+                        <div class="ln_solid"></div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <button tabindex="5" type="submit" class="btn btn-primary"><i
+                                        class="fa fa-save"></i>&nbsp;<span th:text="#{save}"></span></button>
+                                <button tabindex="6" type="button" class="btn btn-default" onclick="clearParameterForm();"><i
+                                        class="fa fa-eraser"></i>&nbsp;<span th:text="#{clean}"></span></button>
+                                <button tabindex="7" type="button" class="btn btn-info"
+                                        onclick="$.publish('reloadTable')">
+                                    <i class="fa fa-search"></i>&nbsp;<span th:text="#{search}"></span></button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12 col-sm-12 col-xs-12">
+            <div class="x_panel">
+                <div class="x_title">
+                    <h2 th:text="#{table} + ' ' + #{parameters}"></h2>
+                    <ul class="nav navbar-right panel_toolbox">
+                        <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a></li>
+                    </ul>
+                    <div class="clearfix"></div>
+                </div>
+                <div class="x_content">
+                    <table class="table table-striped table-bordered table-hover table-condensed dt-responsive nowrap" width="100%">
+                        <thead>
+                        <tr>
+                            <th th:text="#{title}"></th>
+                            <th th:text="#{code}"></th>
+                            <th th:text="#{parameterGroup}"></th>
+                            <th th:text="#{value}"></th>
+                            <th th:text="#{modifyDate}"></th>
+                            <th><i class="fa fa-wrench"></i></th>
+                        </tr>
+                        </thead>
+                        <tfoot>
+                        <tr>
+                            <th th:text="#{title}"></th>
+                            <th th:text="#{code}"></th>
+                            <th th:text="#{parameterGroup}"></th>
+                            <th th:text="#{value}"></th>
+                            <th th:text="#{modifyDate}"></th>
+                            <th><i class="fa fa-wrench"></i></th>
+                        </tr>
+                        </tfoot>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</th:block>
+
+<th:block layout:fragment="footer">
+    <script type="text/javascript" th:src="@{/js/script/parameter.js}"></script>
+</th:block>
+</html>

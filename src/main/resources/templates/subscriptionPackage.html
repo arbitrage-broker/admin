@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{fragments/master}">
+
+<th:block layout:fragment="header">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/lib/select2.min.css}"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/lib/select2-bootstrap.css}"/>
+    <script type="text/javascript" th:src="@{/js/lib/select2.min.js}"></script>
+    <script type="text/javascript" th:src="@{/js/messages/select2.fa.js}"></script>
+    <style>
+        .panel_toolbox {
+            min-width: 0;
+        }
+    </style>
+</th:block>
+<th:block layout:fragment="content">
+    <input type="hidden" value="/api/v1/subscription-package" id="requestMapping"/>
+
+    <div class="row">
+        <div class="col-md-12 col-sm-12 col-xs-12">
+            <div class="x_panel">
+                <div class="x_title">
+                    <h2 th:text="#{searchA} + ' ' + #{subscriptionPackage}"></h2>
+                    <ul class="nav navbar-right panel_toolbox">
+                        <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a></li>
+                    </ul>
+                    <div class="clearfix"></div>
+                </div>
+                <div class="x_content">
+                    <form>
+                        <input type="hidden" value="" id="hdf_id"/>
+                        <div class="row">
+                            <div class="col-md-6 form-group">
+                                <label th:text="#{name}"></label>
+                                <input autofocus class="form-control" tabindex="1" type="text" th:placeholder="#{name}"
+                                       th:title="#{name}" id="name"/>
+                            </div>
+                            <div class="col-md-6 form-group">
+                                <label th:text="#{duration}"></label>
+                                <input class="form-control" tabindex="2" type="number" th:placeholder="#{duration}"
+                                       th:title="#{duration}" id="duration"/>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6 form-group">
+                                <label th:text="#{price}"></label>
+                                <input class="form-control" tabindex="3" type="text" th:placeholder="#{price}"
+                                       th:title="#{price}" id="price"/>
+                            </div>
+                            <div class="col-md-6 form-group">
+                                <label th:text="#{maximum} + ' ' + #{price}"></label>
+                                <input class="form-control" tabindex="4" type="text" th:placeholder="#{maximum} + ' ' + #{price}"
+                                       th:title="#{maximum} + ' ' + #{price}" id="maxPrice"/>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6 form-group">
+                                <label th:text="#{currency}"></label>
+                                <select class="form-control" th:id="currency" th:title="#{currency}" tabindex="5">
+                                    <option value="" th:text="#{currency}" selected></option>
+                                </select>
+                            </div>
+                            <div class="col-md-6 form-group">
+                                <label th:text="#{status}"></label>
+                                <select class="form-control" th:id="status" th:title="#{status}" tabindex="6">
+                                    <option value="" th:text="#{status}" selected ></option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6 form-group">
+                                <label th:text="#{minimum} + ' ' + #{awards}"></label>
+                                <input  class="form-control" tabindex="7" type="number" th:placeholder="#{minimum} + ' ' + #{awards}"
+                                       th:title="#{minimum} + ' ' + #{awards}" id="minTradingReward"/>
+                            </div>
+                            <div class="col-md-6 form-group">
+                                <label th:text="#{maximum} + ' ' + #{awards}"></label>
+                                <input class="form-control" tabindex="8"  rows="3" th:placeholder="#{maximum} + ' ' + #{awards}"
+                                          th:title="#{maximum} + ' ' + #{awards}" id="maxTradingReward"></input>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6 form-group">
+                                <label th:text="#{parentReferralBonus}"></label>
+                                <input  class="form-control" tabindex="10" type="number" th:placeholder="#{parentReferralBonus}"
+                                       th:title="#{parentReferralBonus}" id="parentReferralBonus"/>
+                            </div>
+                            <div class="col-md-6 form-group">
+                                <label th:text="#{withdrawalDurationPerDay}"></label>
+                                <input  class="form-control" tabindex="11" type="number" th:placeholder="#{withdrawalDurationPerDay}"
+                                       th:title="#{withdrawalDurationPerDay}" id="withdrawalDurationPerDay"/>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6 form-group">
+                                <label th:text="#{userProfitPercentage}"></label>
+                                <input  class="form-control" tabindex="12" type="number" th:placeholder="#{userProfitPercentage}"
+                                        th:title="#{userProfitPercentage}" id="userProfitPercentage"/>
+                            </div>
+                            <div class="col-md-6 form-group">
+                                <label th:text="#{siteProfitPercentage}"></label>
+                                <input  class="form-control" tabindex="13" type="number" th:placeholder="#{siteProfitPercentage}"
+                                        th:title="#{siteProfitPercentage}" id="siteProfitPercentage"/>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6 form-group">
+                                <label th:text="#{orderCount}"></label>
+                                <input  class="form-control" tabindex="14" type="number" th:placeholder="#{orderCount}"
+                                        th:title="#{orderCount}" id="orderCount"/>
+                            </div>
+                            <div class="col-md-6 form-group">
+                                <label th:text="#{description}"></label>
+                                <textarea class="form-control" tabindex="15"  rows="3" th:placeholder="#{description}"
+                                          th:title="#{description}" id="description"></textarea>
+                            </div>
+                        </div>
+                        <div class="ln_solid"></div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <button tabindex="16" type="submit" class="btn btn-primary"><i
+                                        class="fa fa-save"></i>&nbsp;<span th:text="#{save}"></span></button>
+                                <button tabindex="17" type="button" class="btn btn-default" onclick="clearAll();"><i
+                                        class="fa fa-eraser"></i>&nbsp;<span th:text="#{clean}"></span></button>
+                                <button tabindex="18" type="button" class="btn btn-info"
+                                        onclick="$.publish('reloadTable')">
+                                    <i class="fa fa-search"></i>&nbsp;<span th:text="#{search}"></span></button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12 col-sm-12 col-xs-12">
+            <div class="x_panel">
+                <div class="x_title">
+                    <h2 th:text="#{table} + ' ' + #{subscriptionPackage}"></h2>
+                    <ul class="nav navbar-right panel_toolbox">
+                        <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a></li>
+                    </ul>
+                    <div class="clearfix"></div>
+                </div>
+                <div class="x_content">
+                    <table class="table table-striped table-bordered table-hover table-condensed dt-responsive nowrap" width="100%">
+                        <thead>
+                        <tr>
+                            <th th:text="#{name}"></th>
+                            <th th:text="#{duration}"></th>
+                            <th th:text="#{orderCount}"></th>
+                            <th th:text="#{price}"></th>
+                            <th th:text="#{maximum} + ' ' + #{price}"></th>
+                            <th th:text="#{currency}"></th>
+                            <th th:text="#{status}"></th>
+                            <th th:text="#{minimum} + ' ' + #{awards} + ' ' + #{trade}"></th>
+                            <th th:text="#{maximum} + ' ' + #{awards} + ' ' + #{trade}"></th>
+                            <th th:text="#{parentReferralBonus}"></th>
+                            <th th:text="#{withdrawalDurationPerDay}"></th>
+                            <th th:text="#{userProfitPercentage}"></th>
+                            <th th:text="#{siteProfitPercentage}"></th>
+                            <th th:text="#{modifyDate}"></th>
+                            <th><i class="fa fa-wrench"></i></th>
+                        </tr>
+                        </thead>
+                        <tfoot>
+                        <tr>
+                            <th th:text="#{name}"></th>
+                            <th th:text="#{duration}"></th>
+                            <th th:text="#{orderCount}"></th>
+                            <th th:text="#{price}"></th>
+                            <th th:text="#{maximum} + ' ' + #{price}"></th>
+                            <th th:text="#{currency}"></th>
+                            <th th:text="#{status}"></th>
+                            <th th:text="#{minimum} + ' ' + #{awards} + ' ' + #{trade}"></th>
+                            <th th:text="#{maximum} + ' ' + #{awards} + ' ' + #{trade}"></th>
+                            <th th:text="#{parentReferralBonus}"></th>
+                            <th th:text="#{withdrawalDurationPerDay}"></th>
+                            <th th:text="#{userProfitPercentage}"></th>
+                            <th th:text="#{siteProfitPercentage}"></th>
+                            <th th:text="#{modifyDate}"></th>
+                            <th><i class="fa fa-wrench"></i></th>
+                        </tr>
+                        </tfoot>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="myModal" class="modal bs-example-modal-lg" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+
+                <div class="modal-header">
+                    <h4 class="modal-title" id="myModalLabel">Subscription Package Detail <small></small></h4>
+                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-12 col-sm-12 col-xs-12">
+                            <input type="hidden" value="" id="hdf_subscriptionPackageId" th:value="${hdf_subscriptionPackageId}"/>
+                            <form>
+                                <input type="hidden" value="" id="hdf_subscriptionPackageDetailId"/>
+                                <div class="row">
+                                    <div class="col-md-6 form-group">
+                                        <label th:text="#{minProfit}"></label>
+                                        <input class="form-control" tabindex="1" type="number"
+                                               th:placeholder="#{minProfit}"
+                                               th:title="#{minProfit}" id="minProfit"/>
+                                    </div>
+                                    <div class="col-md-6 form-group">
+                                        <label th:text="#{maxProfit}"></label>
+                                        <input class="form-control" tabindex="2" type="number"
+                                               th:placeholder="#{maxProfit}"
+                                               th:title="#{maxProfit}" id="maxProfit"/>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6 form-group">
+                                        <label th:text="#{amount}"></label>
+                                        <input class="form-control" tabindex="3" type="text" th:placeholder="#{amount}"
+                                               th:title="#{amount}" id="amount"/>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <button tabindex="3" type="submit" class="btn btn-primary"><i
+                                                class="fa fa-save"></i>&nbsp;<span th:text="#{save}"></span></button>
+                                        <button tabindex="4" type="button" class="btn btn-default" onclick="clearAllDetail();"><i
+                                                class="fa fa-eraser"></i>&nbsp;<span th:text="#{clean}"></span></button>
+                                    </div>
+                                </div>
+                                <div class="ln_solid"></div>
+                                <table class="table table-striped table-bordered table-hover table-condensed dt-responsive nowrap" width="100%">
+                                    <thead>
+                                    <tr>
+                                        <th th:text="#{amount}"></th>
+                                        <th th:text="#{minProfit}"></th>
+                                        <th th:text="#{maxProfit}"></th>
+                                        <th th:text="#{modifyDate}"></th>
+                                        <th><i class="fa fa-wrench"></i></th>
+                                    </tr>
+                                    </thead>
+                                    <tfoot>
+                                    <tr>
+                                        <th th:text="#{amount}"></th>
+                                        <th th:text="#{minProfit}"></th>
+                                        <th th:text="#{maxProfit}"></th>
+                                        <th th:text="#{modifyDate}"></th>
+                                        <th><i class="fa fa-wrench"></i></th>
+                                    </tr>
+                                    </tfoot>
+                                </table>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</th:block>
+
+<th:block layout:fragment="footer">
+    <script type="text/javascript" th:src="@{/js/script/subscriptionPackage.js}"></script>
+</th:block>
+</html>

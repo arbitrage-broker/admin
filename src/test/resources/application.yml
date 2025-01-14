@@ -1,0 +1,48 @@
+server.port: 2022
+
+# Spring Boot configuration
+spring:
+  application:
+    name: app
+    version: 1.0.0-SNAPSHOT
+  liquibase:
+    contexts: test
+    change-log: "classpath:/db/changelog/master.xml"
+  queries:
+    users-query: select user_name, password, active_flag from tbl_user where user_name=? or email=?
+    roles-query: select u.user_name, r.role from tbl_user u inner join tbl_user_role ur on (u.id=ur.user_id) inner join tbl_role r on (ur.role_id=r.id) where u.user_name=? or u.email=?
+  # Database
+  datasource:
+    driver-class-name: org.h2.Driver
+    url: jdbc:h2:mem:eshop;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE
+    username:
+    password:
+  # JPA properties
+  jpa:
+    hibernate:
+      ddl-auto: none
+#      naming:
+#        physical-strategy: org.springframework.boot.orm.jpa.hibernate.SpringPhysicalNamingStrategy
+#        implicit-strategy: org.springframework.boot.orm.jpa.hibernate.SpringImplicitNamingStrategy
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.H2Dialect
+        envers:
+          store_data_at_delete: true
+    show-sql: false
+    database: H2
+    database-platform: org.hibernate.dialect.H2Dialect
+    open-in-view: false
+    generate-ddl: true
+  mail:
+    host: smtp0101.titan.email
+    username: admin@arbitrage-broker.com
+    password: ehb=9Qx@UVul41>
+    port: 587
+    protocol: smtp
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true

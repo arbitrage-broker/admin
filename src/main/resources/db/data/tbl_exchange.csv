@@ -1,0 +1,18 @@
+id,created_by,created_date,modified_by,modified_date,version,name,logo
+1,administrator,2024-08-11 19:32:47.000000,administrator,2024-08-11 19:32:47.000000,0,binance,/api/v1/files/binance.png
+2,administrator,2024-08-11 19:32:47.000000,administrator,2024-08-11 19:32:47.000000,0,bingx,/api/v1/files/bingx.png
+3,administrator,2024-08-11 19:32:47.000000,administrator,2024-08-11 19:32:47.000000,0,bitfinex,/api/v1/files/bitfinex.png
+4,administrator,2024-08-11 19:32:47.000000,administrator,2024-08-11 19:32:47.000000,0,bitgate,/api/v1/files/bitgate.png
+5,administrator,2024-08-11 19:32:47.000000,administrator,2024-08-11 19:32:47.000000,0,bithumb,/api/v1/files/bithumb.png
+6,administrator,2024-08-11 19:32:47.000000,administrator,2024-08-11 19:32:47.000000,0,bitmart,/api/v1/files/bitmart.png
+7,administrator,2024-08-11 19:32:47.000000,administrator,2024-08-11 19:32:47.000000,0,bybit,/api/v1/files/bybit.png
+8,administrator,2024-08-11 19:32:47.000000,administrator,2024-08-11 19:32:47.000000,0,coinbase,/api/v1/files/coinbase.png
+9,administrator,2024-08-11 19:32:47.000000,administrator,2024-08-11 19:32:47.000000,0,crypto,/api/v1/files/crypto.png
+10,administrator,2024-08-11 19:32:47.000000,administrator,2024-08-11 19:32:47.000000,0,gateio,/api/v1/files/gateio.png
+11,administrator,2024-08-11 19:32:47.000000,administrator,2024-08-11 19:32:47.000000,0,gemini,/api/v1/files/gemini.png
+12,administrator,2024-08-11 19:32:47.000000,administrator,2024-08-11 19:32:47.000000,0,htx,/api/v1/files/htx.png
+13,administrator,2024-08-11 19:32:47.000000,administrator,2024-08-11 19:32:47.000000,0,keraken,/api/v1/files/keraken.png
+14,administrator,2024-08-11 19:32:47.000000,administrator,2024-08-11 19:32:47.000000,0,kucoin,/api/v1/files/kucoin.png
+15,administrator,2024-08-11 19:32:47.000000,administrator,2024-08-11 19:32:47.000000,0,lbank,/api/v1/files/lbank.png
+16,administrator,2024-08-11 19:32:47.000000,administrator,2024-08-11 19:32:47.000000,0,mex,/api/v1/files/mex.png
+17,administrator,2024-08-11 19:32:47.000000,administrator,2024-08-11 19:32:47.000000,0,okx,/api/v1/files/okx.png

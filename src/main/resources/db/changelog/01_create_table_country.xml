@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.4.xsd">
+
+    <changeSet id="01-1" author="administrator">
+        <createSequence incrementBy="1" sequenceName="seq_country" startValue="1"/>
+    </changeSet>
+    <changeSet id="01-2" author="administrator">
+        <createTable tableName="tbl_country">
+            <column name="id" type="bigint">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="pk_country"/>
+            </column>
+            <column name="created_by" type="VARCHAR(255)"/>
+            <column name="created_date" type="TIMESTAMP"/>
+            <column name="modified_by" type="VARCHAR(255)"/>
+            <column name="modified_date" type="TIMESTAMP"/>
+            <column defaultValueNumeric="0" name="version" type="integer"/>
+            <column name="name" type="varchar(100)"/>
+            <column name="iso3" type="varchar(100)"/>
+            <column name="iso2" type="varchar(100)"/>
+            <column name="numeric_code" type="varchar(100)"/>
+            <column name="phone_code" type="varchar(100)"/>
+            <column name="capital" type="varchar(100)"/>
+            <column name="currency" type="varchar(100)"/>
+            <column name="currency_symbol" type="varchar(100)"/>
+            <column name="tld" type="varchar(100)"/>
+            <column name="native_name" type="varchar(100)"/>
+            <column name="region" type="varchar(100)"/>
+            <column name="subregion" type="varchar(100)"/>
+            <column name="latitude" type="varchar(100)"/>
+            <column name="longitude" type="varchar(100)"/>
+            <column name="emoji" type="varchar(100)"/>
+            <column name="emojiu" type="varchar(100)"/>
+        </createTable>
+    </changeSet>
+</databaseChangeLog>

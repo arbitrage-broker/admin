@@ -1,0 +1,5 @@
+id,created_by,created_date,modified_by,modified_date,version,role,title
+1,administrator,2022-03-29 22:07:51.407359,null,null,0,ROLE_ADMIN,system admin
+2,administrator,2022-03-29 22:07:51.447854,null,null,0,ROLE_USER,normal user
+3,administrator,2022-03-29 22:07:51.447854,null,null,0,ROLE_SUPER_WISER,super wiser
+4,administrator,2022-03-29 22:07:51.447854,null,null,0,ROLE_GUEST,guest user

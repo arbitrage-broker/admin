@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{fragments/master}">
+
+<th:block layout:fragment="header">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/lib/daterangepicker.css}"/>
+</th:block>
+<div layout:fragment="content">
+    <div class="row top_tiles">
+        <div class="animated flipInY col-lg-3 col-md-3 col-sm-6 col-xs-12">
+            <div class="tile-stats">
+                <div class="icon"><i class="fa fa-users"></i></div>
+                <div id="totalUsers" class="count">0</div>
+                <p>&nbsp;</p>
+                <h3 th:text="#{totalUsers}"></h3>
+            </div>
+        </div>
+        <div class="animated flipInY col-lg-3 col-md-3 col-sm-6 col-xs-12">
+            <div class="tile-stats">
+                <div class="icon"><i class="fa fa-wallet"></i></div>
+                <div id="totalBalance" class="count">0</div>
+                <p>&nbsp;</p>
+                <h3 th:text="#{totalBalance}"></h3>
+            </div>
+        </div>
+        <div class="animated flipInY col-lg-3 col-md-3 col-sm-6 col-xs-12">
+            <div class="tile-stats">
+                <div class="icon"><i class="fa fa-gift"></i></div>
+                <div id="totalBonus" class="count">0</div>
+                <p>&nbsp;</p>
+                <h3 th:text="#{totalBonus}"></h3>
+            </div>
+        </div>
+        <div class="animated flipInY col-lg-3 col-md-3 col-sm-6 col-xs-12">
+            <div class="tile-stats">
+                <div class="icon"><i class="fa fa-chart-line"></i></div>
+                <div id="totalProfit" class="count">0</div>
+                <p>&nbsp;</p>
+                <h3 th:text="#{totalProfit}"></h3>
+            </div>
+        </div>
+        <div class="animated flipInY col-lg-3 col-md-3 col-sm-6 col-xs-12">
+            <div class="tile-stats">
+                <div class="icon"><i class="fa fa-hand-holding-usd"></i></div>
+                <div id="totalWithdrawal" class="count">0</div>
+                <p>&nbsp;</p>
+                <h3 th:text="#{totalWithdrawal}"></h3>
+            </div>
+        </div>
+        <div class="animated flipInY col-lg-3 col-md-3 col-sm-6 col-xs-12">
+            <div class="tile-stats">
+                <div class="icon"><i class="fa fa-piggy-bank"></i></div>
+                <div id="totalDeposit" class="count">0</div>
+                <p>&nbsp;</p>
+                <h3 th:text="#{totalDeposit}"></h3>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-6 col-sm-6">
+            <div class="x_panel tile">
+                <div class="x_title">
+                    <h2>Total Deposit and Total Withdrawal Activities <small>1 week a go</small></h2>
+                    <ul class="nav navbar-right panel_toolbox">
+                        <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                        </li>
+                        <li><a class="close-link"><i class="fa fa-close"></i></a>
+                        </li>
+                    </ul>
+                    <div class="clearfix"></div>
+                </div>
+                <div class="x_content">
+                    <div id="chart_01" class="demo-placeholder"></div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6 col-sm-6">
+            <div class="x_panel tile">
+                <div class="x_title">
+                    <h2>Referral Bonus and Total Profit Activities <small>1 week a go</small></h2>
+                    <ul class="nav navbar-right panel_toolbox">
+                        <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                        </li>
+                        <li><a class="close-link"><i class="fa fa-close"></i></a>
+                        </li>
+                    </ul>
+                    <div class="clearfix"></div>
+                </div>
+                <div class="x_content">
+                    <div id="chart_02" class="demo-placeholder"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<th:block layout:fragment="footer">
+    <script th:src="@{/js/lib/icheck.min.js}"></script>
+    <script th:src="@{/js/lib/moment.min.js}"></script>
+    <script th:src="@{/js/lib/daterangepicker.js}"></script>
+    <script th:src="@{/js/lib/chart.min.js}"></script>
+    <script th:src="@{/js/lib/jquery.sparkline.min.js}"></script>
+    <script th:src="@{/js/lib/gauge.min.js}"></script>
+    <script th:src="@{/js/lib/skycons.js}"></script>
+    <script th:src="@{/js/lib/jquery.flot.js}"></script>
+    <script th:src="@{/js/lib/jquery.flot.pie.js}"></script>
+    <script th:src="@{/js/lib/jquery.flot.time.js}"></script>
+    <script th:src="@{/js/lib/jquery.flot.stack.js}"></script>
+    <script th:src="@{/js/lib/jquery.flot.resize.js}"></script>
+    <script th:src="@{/js/lib/jquery.flot.orderBars.js}"></script>
+    <script th:src="@{/js/lib/jquery.flot.spline.min.js}"></script>
+    <script th:src="@{/js/lib/curvedLines.js}"></script>
+    <script th:src="@{/js/lib/date.min.js}"></script>
+    <script th:src="@{/js/lib/jquery.vmap.js}"></script>
+    <script th:src="@{/js/lib/jquery.vmap.world.js}"></script>
+    <script th:src="@{/js/lib/jquery.vmap.sampledata.js}"></script>
+    <script th:src="@{/js/lib/bootstrap-progressbar.min.js}"></script>
+    <script th:src="@{/js/script/dashboard.js}"></script>
+</th:block>
+</html>

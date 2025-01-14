@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.4.xsd">
+
+    <changeSet id="12-1" author="administrator">
+        <createSequence incrementBy="1" sequenceName="seq_arbitrage" startValue="1"/>
+    </changeSet>
+    <changeSet id="12-2" author="administrator">
+        <createTable tableName="tbl_arbitrage">
+            <column name="id" type="bigint">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="pk_arbitrage"/>
+            </column>
+            <column name="created_by" type="VARCHAR(255)"/>
+            <column name="created_date" type="TIMESTAMP"/>
+            <column name="modified_by" type="VARCHAR(255)"/>
+            <column name="modified_date" type="TIMESTAMP"/>
+            <column defaultValueNumeric="0" name="version" type="integer"/>
+            <column name="user_id" type="UUID">
+                <constraints nullable="false"/>
+            </column>
+            <column name="exchange_id" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+            <column name="coin_id" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+            <column name="subscription_id" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+            <column name="reward" type="NUMBER(19, 6)"/>
+            <column name="currency" type="VARCHAR(50)"/>
+        </createTable>
+    </changeSet>
+    <changeSet id="12-3" author="administrator">
+        <createTable tableName="tbl_arbitrage_aud">
+            <column name="id" type="bigint">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="pk_arbitrage_aud"/>
+            </column>
+            <column name="created_by" type="VARCHAR(255)"/>
+            <column name="created_date" type="TIMESTAMP"/>
+            <column name="modified_by" type="VARCHAR(255)"/>
+            <column name="modified_date" type="TIMESTAMP"/>
+            <column defaultValueNumeric="0" name="version" type="integer"/>
+            <column name="user_id" type="UUID">
+            </column>
+            <column name="exchange_id" type="bigint">
+            </column>
+            <column name="coin_id" type="bigint">
+            </column>
+            <column name="subscription_id" type="bigint">
+            </column>
+            <column name="reward" type="NUMBER(19, 6)"/>
+            <column name="currency" type="VARCHAR(50)"/>
+            <column name="rev" type="BIGINT">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="pk_arbitrage_aud"/>
+            </column>
+            <column name="revtype" type="tinyint"/>
+        </createTable>
+    </changeSet>
+    <changeSet id="12-4" author="administrator">
+        <addForeignKeyConstraint baseColumnNames="user_id" baseTableName="tbl_arbitrage"
+                                 constraintName="fk_tbl_arbitrage_on_user_id" referencedColumnNames="id"
+                                 referencedTableName="tbl_user"/>
+        <addForeignKeyConstraint baseColumnNames="exchange_id" baseTableName="tbl_arbitrage"
+                                 constraintName="fk_tbl_arbitrage_on_exchange_id" referencedColumnNames="id"
+                                 referencedTableName="tbl_exchange"/>
+        <addForeignKeyConstraint baseColumnNames="coin_id" baseTableName="tbl_arbitrage"
+                                 constraintName="fk_tbl_arbitrage_on_coin_id" referencedColumnNames="id"
+                                 referencedTableName="tbl_coin"/>
+        <addForeignKeyConstraint baseColumnNames="subscription_id" baseTableName="tbl_arbitrage"
+                                 constraintName="fk_tbl_arbitrage_on_subscription_id" referencedColumnNames="id"
+                                 referencedTableName="tbl_subscription"/>
+    </changeSet>
+    <changeSet id="12-5" author="administrator">
+        <addColumn tableName="tbl_arbitrage">
+            <column name="role" type="VARCHAR(255)" defaultValue="ROLE_SUPER_WISER">
+                <constraints nullable="false"></constraints>
+            </column>
+        </addColumn>
+        <addColumn tableName="tbl_arbitrage_aud">
+            <column name="role" type="VARCHAR(255)"/>
+        </addColumn>
+    </changeSet>
+    <changeSet id="12-6" author="administrator">
+        <dropTable tableName="tbl_arbitrage_aud"></dropTable>
+    </changeSet>
+</databaseChangeLog>

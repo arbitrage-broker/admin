@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                      http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.5.xsd"
+        objectQuotingStrategy="QUOTE_ONLY_RESERVED_WORDS">
+
+    <changeSet id="11-1" author="administrator">
+        <loadData file="db/data/tbl_exchange.csv" tableName = "tbl_exchange" >
+            <column header="id" name="id" type="bigint" />
+            <column header="created_by" name="created_by" type="VARCHAR(255)"/>
+            <column header="created_date" name="created_date" type="TIMESTAMP"/>
+            <column header="modified_by" name="modified_by" type="VARCHAR(255)"/>
+            <column header="modified_date" name="modified_date" type="TIMESTAMP"/>
+            <column header="version" name="version" type="integer"/>
+            <column header="name" name="name" type="VARCHAR(255)"/>
+            <column header="logo" name="logo" type="VARCHAR(500)"/>
+        </loadData>
+    </changeSet>
+
+    <changeSet id="11-2" author="administrator">
+        <loadData file="db/data/tbl_coin.csv" tableName = "tbl_coin" >
+            <column header="id" name="id" type="bigint" />
+            <column header="created_by" name="created_by" type="VARCHAR(255)"/>
+            <column header="created_date" name="created_date" type="TIMESTAMP"/>
+            <column header="modified_by" name="modified_by" type="VARCHAR(255)"/>
+            <column header="modified_date" name="modified_date" type="TIMESTAMP"/>
+            <column header="version" name="version" type="integer"/>
+            <column header="name" name="name" type="VARCHAR(255)"/>
+            <column header="logo" name="logo" type="VARCHAR(500)"/>
+        </loadData>
+    </changeSet>
+
+    <changeSet id="11-3" author="administrator">
+        <sql dbms="postgresql">select setval('seq_exchange', max(id)+1) from tbl_exchange</sql>
+        <sql dbms="h2">alter sequence seq_exchange restart with (select max(id)+1 from tbl_exchange)</sql>
+
+        <sql dbms="postgresql">select setval('seq_coin', max(id)+1) from tbl_coin</sql>
+        <sql dbms="h2">alter sequence seq_coin restart with (select max(id)+1 from tbl_coin)</sql>
+    </changeSet>
+</databaseChangeLog>

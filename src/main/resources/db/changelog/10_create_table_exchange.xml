@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.4.xsd">
+
+    <changeSet id="10-1" author="administrator">
+        <createSequence incrementBy="1" sequenceName="seq_exchange" startValue="1"/>
+        <createSequence incrementBy="1" sequenceName="seq_coin" startValue="1"/>
+    </changeSet>
+    <changeSet id="10-2" author="administrator">
+        <createTable tableName="tbl_exchange">
+            <column name="id" type="bigint">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="pk_exchange"/>
+            </column>
+            <column name="created_by" type="VARCHAR(255)"/>
+            <column name="created_date" type="TIMESTAMP"/>
+            <column name="modified_by" type="VARCHAR(255)"/>
+            <column name="modified_date" type="TIMESTAMP"/>
+            <column defaultValueNumeric="0" name="version" type="integer"/>
+            <column name="name" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="logo" type="VARCHAR(500)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet id="10-3" author="administrator">
+        <createTable tableName="tbl_exchange_aud">
+            <column name="id" type="bigint">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="pk_exchange_aud"/>
+            </column>
+            <column name="created_by" type="VARCHAR(255)"/>
+            <column name="created_date" type="TIMESTAMP"/>
+            <column name="modified_by" type="VARCHAR(255)"/>
+            <column name="modified_date" type="TIMESTAMP"/>
+            <column defaultValueNumeric="0" name="version" type="integer"/>
+            <column name="name" type="VARCHAR(255)">
+            </column>
+            <column name="logo" type="VARCHAR(500)">
+            </column>
+            <column name="rev" type="BIGINT">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="pk_exchange_aud"/>
+            </column>
+            <column name="revtype" type="tinyint"/>
+        </createTable>
+    </changeSet>
+    <changeSet id="10-4" author="administrator">
+        <createTable tableName="tbl_coin">
+            <column name="id" type="bigint">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="pk_coin"/>
+            </column>
+            <column name="created_by" type="VARCHAR(255)"/>
+            <column name="created_date" type="TIMESTAMP"/>
+            <column name="modified_by" type="VARCHAR(255)"/>
+            <column name="modified_date" type="TIMESTAMP"/>
+            <column defaultValueNumeric="0" name="version" type="integer"/>
+            <column name="name" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="logo" type="VARCHAR(500)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet id="10-5" author="administrator">
+        <createTable tableName="tbl_coin_aud">
+            <column name="id" type="bigint">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="pk_coin_aud"/>
+            </column>
+            <column name="created_by" type="VARCHAR(255)"/>
+            <column name="created_date" type="TIMESTAMP"/>
+            <column name="modified_by" type="VARCHAR(255)"/>
+            <column name="modified_date" type="TIMESTAMP"/>
+            <column defaultValueNumeric="0" name="version" type="integer"/>
+            <column name="name" type="VARCHAR(255)">
+            </column>
+            <column name="logo" type="VARCHAR(500)">
+            </column>
+            <column name="rev" type="BIGINT">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="pk_coin_aud"/>
+            </column>
+            <column name="revtype" type="tinyint"/>
+        </createTable>
+    </changeSet>
+    <changeSet id="10-6" author="administrator">
+        <addUniqueConstraint columnNames="name" constraintName="uc_name_exchange" tableName="tbl_exchange"/>
+        <addUniqueConstraint columnNames="name" constraintName="uc_name_coin" tableName="tbl_coin"/>
+    </changeSet>
+</databaseChangeLog>

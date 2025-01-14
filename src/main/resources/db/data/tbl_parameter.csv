@@ -1,0 +1,24 @@
+id,created_by,created_date,modified_by,modified_date,version,title,code,value,parameter_group_id
+1,administrator,2022-03-29 22:07:51.381060,administrator,2022-03-29 22:07:51.381060,0,minimum withdrawal profit,MIN_WITHDRAW,15,2
+2,administrator,2022-03-29 22:07:51.381060,administrator,2022-03-29 22:07:51.381060,0,withdrawal transfer fee,TRANSFER_FEE,2,2
+3,administrator,2022-03-29 22:07:51.381060,administrator,2022-03-29 22:07:51.381060,0,50~99,REFERRAL_DEPOSIT_BONUS_50,1,4
+4,administrator,2022-03-29 22:07:51.381060,administrator,2022-03-29 22:07:51.381060,0,100~599,REFERRAL_DEPOSIT_BONUS_100,2.5,4
+5,administrator,2022-03-29 22:07:51.381060,administrator,2022-03-29 22:07:51.381060,0,600~1999,REFERRAL_DEPOSIT_BONUS_600,5,4
+6,administrator,2022-03-29 22:07:51.381060,administrator,2022-03-29 22:07:51.381060,0,2000~4999,REFERRAL_DEPOSIT_BONUS_2100,9,4
+7,administrator,2022-03-29 22:07:51.381060,administrator,2022-03-29 22:07:51.381060,0,5000~9999,REFERRAL_DEPOSIT_BONUS_5100,12,4
+8,administrator,2022-03-29 22:07:51.381060,administrator,2022-03-29 22:07:51.381060,0,10000~99999,REFERRAL_DEPOSIT_BONUS_10100,20,4
+9,administrator,2022-03-29 22:07:51.381060,administrator,2022-03-29 22:07:51.381060,0,2,INVITE_2_FRIENDS,5,5
+10,administrator,2022-03-29 22:07:51.381060,administrator,2022-03-29 22:07:51.381060,0,5,INVITE_5_FRIENDS,12,5
+11,administrator,2022-03-29 22:07:51.381060,administrator,2022-03-29 22:07:51.381060,0,8,INVITE_8_FRIENDS,18,5
+12,administrator,2022-03-29 22:07:51.381060,administrator,2022-03-29 22:07:51.381060,0,12,INVITE_12_FRIENDS,25,5
+13,administrator,2022-03-29 22:07:51.381060,administrator,2022-03-29 22:07:51.381060,0,20,INVITE_20_FRIENDS,35,5
+14,administrator,2022-03-29 22:07:51.381060,administrator,2022-03-29 22:07:51.381060,0,50,INVITE_50_FRIENDS,60,5
+15,administrator,2022-03-29 22:07:51.381060,administrator,2022-03-29 22:07:51.381060,0,100,INVITE_100_FRIENDS,150,5
+16,administrator,2022-03-29 22:07:51.381060,administrator,2022-03-29 22:07:51.381060,0,500,INVITE_500_FRIENDS,800,5
+17,administrator,2022-03-29 22:07:51.381060,administrator,2022-03-29 22:07:51.381060,0,1000,INVITE_1000_FRIENDS,2000,5
+18,administrator,2022-03-29 22:07:51.381060,administrator,2022-03-29 22:07:51.381060,0,sub user percentage to calculate withdrawal amount,SUB_USER_PERCENTAGE,0.1,2
+19,administrator,2022-03-29 22:07:51.381060,administrator,2022-03-29 22:07:51.381060,0,user percentage to calculate withdrawal amount,USER_PERCENTAGE,0.3,2
+20,administrator,2022-03-29 22:07:51.381060,administrator,2022-03-29 22:07:51.381060,0,telegram bot token for send message,TELEGRAM_BOT_TOKEN,7856865961:AAE9ZUhbDIb5yKiZj1bks5dptf0w4L24GOw,3
+21,administrator,2022-03-29 22:07:51.381060,administrator,2022-03-29 22:07:51.381060,0,telegram bot username for send message,TELEGRAM_BOT_USERNAME,arbitrage_broker_bot,3
+22,administrator,2022-03-29 22:07:51.381060,administrator,2022-03-29 22:07:51.381060,0,Silent user will be deleted after period days,SILENT_USER_PERIOD,15,2
+23,administrator,2022-03-29 22:07:51.381060,administrator,2022-03-29 22:07:51.381060,0,Bonus for free plan,SELF_FREE_BONUS_AMOUNT,10,2
