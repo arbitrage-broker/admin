@@ -2,15 +2,15 @@ package com.arbitragebroker.admin.strategy.impl;
 
 import com.arbitragebroker.admin.enums.CurrencyType;
 import com.arbitragebroker.admin.enums.EntityStatusType;
+import com.arbitragebroker.admin.exception.InsufficentBalanceException;
+import com.arbitragebroker.admin.exception.NotAcceptableException;
 import com.arbitragebroker.admin.model.SubscriptionModel;
 import com.arbitragebroker.admin.model.WalletModel;
 import com.arbitragebroker.admin.repository.WalletRepository;
 import com.arbitragebroker.admin.service.*;
-import com.arbitragebroker.admin.service.*;
+import com.arbitragebroker.admin.service.impl.BaseMailService;
 import com.arbitragebroker.admin.strategy.NetworkStrategyFactory;
 import com.arbitragebroker.admin.strategy.TransactionStrategy;
-import com.arbitragebroker.admin.exception.InsufficentBalanceException;
-import com.arbitragebroker.admin.exception.NotAcceptableException;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
@@ -27,11 +27,11 @@ public class WithdrawalStrategyImpl implements TransactionStrategy {
     private final String subUserPercentage;
     private final String userPercentage;
     private final NotificationService notificationService;
-    private final MailService mailService;
+    private final BaseMailService mailService;
     private final UserService userService;
     private final TelegramService telegramService;
 
-    public WithdrawalStrategyImpl(WalletRepository walletRepository, NetworkStrategyFactory networkStrategyFactory, SubscriptionService subscriptionService, SubscriptionPackageService subscriptionPackageService, ParameterService parameterService, NotificationService notificationService, MailService mailService, UserService userService, TelegramService telegramService) {
+    public WithdrawalStrategyImpl(WalletRepository walletRepository, NetworkStrategyFactory networkStrategyFactory, SubscriptionService subscriptionService, SubscriptionPackageService subscriptionPackageService, ParameterService parameterService, NotificationService notificationService, BaseMailService mailService, UserService userService, TelegramService telegramService) {
         this.walletRepository = walletRepository;
         this.networkStrategyFactory = networkStrategyFactory;
         this.subscriptionService = subscriptionService;

@@ -10,6 +10,8 @@ server:
     key-alias: arbitrage-broker.com
 # Spring Boot configuration
 spring:
+  profiles:
+    active: prod
   mail:
     debug: true
     host: smtp0101.titan.email
@@ -37,9 +39,9 @@ spring:
   # Database
   datasource:
     driver-class-name: org.postgresql.Driver
-    url: ${DB_URL:jdbc:postgresql://dbpostgresql:5432/eshop}
+    url: ${DB_URL:jdbc:postgresql://localhost:5432/eshop}
     username: ${DB_USER:postgres}
-    password: ${DB_PASS:7nd2M487dMM7kLD4}
+    password: ${DB_PASS:password}
   # JPA properties
   jpa:
     hibernate:

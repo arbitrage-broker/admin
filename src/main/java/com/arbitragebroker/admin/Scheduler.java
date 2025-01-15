@@ -9,6 +9,7 @@ import com.arbitragebroker.admin.model.SubscriptionModel;
 import com.arbitragebroker.admin.model.WalletModel;
 import com.arbitragebroker.admin.repository.WalletRepository;
 import com.arbitragebroker.admin.service.*;
+import com.arbitragebroker.admin.service.impl.BaseMailService;
 import com.arbitragebroker.admin.strategy.NetworkStrategyFactory;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.scheduling.annotation.Scheduled;
@@ -32,14 +33,14 @@ public class Scheduler {
     private final NetworkStrategyFactory networkStrategyFactory;
     private final UserService userService;
     private final TelegramService telegramService;
-    private final MailService mailService;
+    private final BaseMailService mailService;
     private final String selfFreeBonusAmount;
     private final String silentUserPeriod;
 
     public Scheduler(WalletRepository walletRepository, SubscriptionService subscriptionService,
                      SubscriptionPackageService subscriptionPackageService, NotificationService notificationService,
                      WalletMapper walletMapper, NetworkStrategyFactory networkStrategyFactory, UserService userService,
-                     TelegramService telegramService, MailService mailService, ParameterService parameterService) {
+                     TelegramService telegramService, BaseMailService mailService, ParameterService parameterService) {
         this.walletRepository = walletRepository;
         this.subscriptionService = subscriptionService;
         this.subscriptionPackageService = subscriptionPackageService;

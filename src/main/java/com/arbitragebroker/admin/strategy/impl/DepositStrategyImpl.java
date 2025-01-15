@@ -10,6 +10,7 @@ import com.arbitragebroker.admin.repository.UserRepository;
 import com.arbitragebroker.admin.repository.WalletRepository;
 import com.arbitragebroker.admin.service.*;
 import com.arbitragebroker.admin.service.*;
+import com.arbitragebroker.admin.service.impl.BaseMailService;
 import com.arbitragebroker.admin.strategy.NetworkStrategyFactory;
 import com.arbitragebroker.admin.strategy.TransactionStrategy;
 import com.arbitragebroker.admin.exception.NotFoundException;
@@ -31,7 +32,7 @@ public class DepositStrategyImpl implements TransactionStrategy {
     private final SubscriptionPackageService subscriptionPackageService;
     private final NetworkStrategyFactory networkStrategyFactory;
     private final NotificationService notificationService;
-    private final MailService mailService;
+    private final BaseMailService mailService;
     private final TelegramService telegramService;
 
     @Override
