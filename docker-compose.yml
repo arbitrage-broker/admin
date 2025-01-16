@@ -3,7 +3,7 @@ services:
     image: admin-image
     container_name: admin-container
     build:
-      context: ./admin/
+      context: .
       dockerfile: Dockerfile
     ports:
       - "2024:2024"
