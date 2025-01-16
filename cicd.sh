@@ -8,8 +8,8 @@ sudo ssh -p 6579 -T "root@$HOST" <<EOF
   cd eshop/admin
   git pull
   mvn clean package verify -DskipTests
-
-  docker rm -f admin-container
-  docker rmi admin-image
+  cd ..
+  docker rm -f app-container
+  docker rmi app-image
   docker compose up -d
 EOF
