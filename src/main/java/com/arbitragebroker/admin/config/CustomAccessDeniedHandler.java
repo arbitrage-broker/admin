@@ -1,6 +1,6 @@
 package com.arbitragebroker.admin.config;
 
-import com.eshop.exception.ErrorResponse;
+import com.arbitragebroker.admin.exception.ErrorResponse;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
