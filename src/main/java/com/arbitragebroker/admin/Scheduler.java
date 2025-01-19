@@ -91,10 +91,10 @@ public class Scheduler {
                 } catch (Exception ignored){}
                 var user = userService.findById(model.getUser().getId());
                 telegramService.sendToRole(user.getRole(), """
-                **Activated Transaction**\n
+                *Activated Transaction*\n
                 Date : %s\n
                 User : %s\n
-                Type : Depost\n
+                Type : Deposit\n
                 Amount : %s""".formatted(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()), user.getSelectTitle(), model.getAmount().toString()));
             } else {
                 we.setStatus(EntityStatusType.Invalid);

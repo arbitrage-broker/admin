@@ -102,7 +102,7 @@ public abstract class BaseMailService {
         emailContent = emailContent.replace("[user_first_name]", recipient.getSelectTitle())
                 .replace("[transaction_type]", model.getTransactionType().getTitle())
                 .replace("[amount]", NumberFormat.getCurrencyInstance(Locale.US).format(model.getAmount()))
-                .replace("[transaction_hash]", getOrDefault(()->model.getTransactionHash(),"---"))
+                .replace("[transaction_date]", getOrDefault(()-> model.getCreatedDate().toString(),"---"))
                 .replace("[wallet_address]", getOrDefault(()->model.getAddress(),"---"))
                 .replace("[YourAppName]", siteName)
                 .replace("[YourSiteUrl]", siteUrl);
