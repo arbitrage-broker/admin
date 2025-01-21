@@ -29,4 +29,9 @@
     <changeSet id="18-3" author="administrator">
         <addUniqueConstraint columnNames="chat_id" constraintName="uc_telegram_chat_id" tableName="tbl_telegram"/>
     </changeSet>
+    <changeSet id="18-4" author="administrator">
+        <addColumn tableName="tbl_telegram">
+            <column name="deleted" type="boolean" defaultValue="0"></column>
+        </addColumn>
+    </changeSet>
 </databaseChangeLog>
