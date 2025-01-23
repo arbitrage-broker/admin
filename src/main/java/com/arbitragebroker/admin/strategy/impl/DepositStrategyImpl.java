@@ -4,16 +4,17 @@ package com.arbitragebroker.admin.strategy.impl;
 import com.arbitragebroker.admin.entity.WalletEntity;
 import com.arbitragebroker.admin.enums.EntityStatusType;
 import com.arbitragebroker.admin.enums.TransactionType;
+import com.arbitragebroker.admin.exception.NotFoundException;
 import com.arbitragebroker.admin.model.SubscriptionModel;
 import com.arbitragebroker.admin.model.WalletModel;
 import com.arbitragebroker.admin.repository.UserRepository;
 import com.arbitragebroker.admin.repository.WalletRepository;
-import com.arbitragebroker.admin.service.*;
-import com.arbitragebroker.admin.service.*;
+import com.arbitragebroker.admin.service.NotificationService;
+import com.arbitragebroker.admin.service.SubscriptionPackageService;
+import com.arbitragebroker.admin.service.SubscriptionService;
+import com.arbitragebroker.admin.service.TelegramService;
 import com.arbitragebroker.admin.service.impl.BaseMailService;
-import com.arbitragebroker.admin.strategy.NetworkStrategyFactory;
 import com.arbitragebroker.admin.strategy.TransactionStrategy;
-import com.arbitragebroker.admin.exception.NotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -30,7 +31,6 @@ public class DepositStrategyImpl implements TransactionStrategy {
     private final UserRepository userRepository;
     private final SubscriptionService subscriptionService;
     private final SubscriptionPackageService subscriptionPackageService;
-    private final NetworkStrategyFactory networkStrategyFactory;
     private final NotificationService notificationService;
     private final BaseMailService mailService;
     private final TelegramService telegramService;
@@ -39,34 +39,32 @@ public class DepositStrategyImpl implements TransactionStrategy {
     public void beforeSave(WalletModel model) {
 
     }
-
     @Override
-    public void afterSave(WalletModel model) {
-        var entity = walletRepository.findById(model.getId()).orElseThrow(()-> new NotFoundException("Transaction not found"));
-        if(model.getStatus().equals(EntityStatusType.Active) && !entity.getStatus().equals(EntityStatusType.Active)) {
-            var balance = walletRepository.calculateUserBalance(model.getUser().getId());
-            var currentSubscription = subscriptionService.findByUserAndActivePackage(model.getUser().getId());
+    public void afterSave(WalletModel newModedl, WalletModel oldModel) {
+        if(newModedl.getStatus().equals(EntityStatusType.Active) && !oldModel.getStatus().equals(EntityStatusType.Active)) {
+            var balance = walletRepository.calculateUserBalance(newModedl.getUser().getId());
+            var currentSubscription = subscriptionService.findByUserAndActivePackage(newModedl.getUser().getId());
 
             var nextSubscriptionPackage = subscriptionPackageService.findMatchedPackageByAmount(balance);
             if (nextSubscriptionPackage != null && (currentSubscription == null || !currentSubscription.getSubscriptionPackage().getId().equals(nextSubscriptionPackage.getId()))) {
-                subscriptionService.create(new SubscriptionModel().setSubscriptionPackage(nextSubscriptionPackage).setUser(model.getUser()).setStatus(EntityStatusType.Active));
+                subscriptionService.create(new SubscriptionModel().setSubscriptionPackage(nextSubscriptionPackage).setUser(newModedl.getUser()).setStatus(EntityStatusType.Active));
             }
-            var user = userRepository.findById(model.getUser().getId()).orElseThrow(()->new NotFoundException("user not found"));
-            if (walletRepository.countByUserIdAndTransactionTypeAndStatus(model.getUser().getId(), TransactionType.DEPOSIT, EntityStatusType.Active) == 1) {
+            var user = userRepository.findById(newModedl.getUser().getId()).orElseThrow(()->new NotFoundException("user not found"));
+            if (walletRepository.countByUserIdAndTransactionTypeAndStatus(newModedl.getUser().getId(), TransactionType.DEPOSIT, EntityStatusType.Active) == 1) {
                 if (get(() -> user.getParent()) != null) {
                     WalletEntity bonus1 = new WalletEntity();
                     bonus1.setStatus(EntityStatusType.Active);
                     bonus1.setUser(user.getParent());
-                    bonus1.setAmount(referralDepositBonus(model.getAmount()));
-                    bonus1.setActualAmount(referralDepositBonus(model.getAmount()));
+                    bonus1.setAmount(referralDepositBonus(newModedl.getAmount()));
+                    bonus1.setActualAmount(referralDepositBonus(newModedl.getAmount()));
                     bonus1.setTransactionType(TransactionType.BONUS);
                     bonus1.setRole(user.getRole());
                     walletRepository.save(bonus1);
                 }
             }
-            notificationService.sendTransactionNotification(model);
+            notificationService.sendTransactionNotification(newModedl);
             try {
-                mailService.sendTransactionMail(model);
+                mailService.sendTransactionMail(newModedl);
             } catch (Exception ignored){}
 
             telegramService.sendToRole(user.getRole(), """
@@ -74,7 +72,7 @@ public class DepositStrategyImpl implements TransactionStrategy {
                 Date : %s\n
                 User : %s\n
                 Type : Deposit\n
-                Amount : %s""".formatted(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()), user.getSelectTitle(), model.getAmount().toString()));
+                Amount : %s""".formatted(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()), user.getSelectTitle(), newModedl.getAmount().toString()));
         }
     }
     public BigDecimal referralDepositBonus(BigDecimal amount) {

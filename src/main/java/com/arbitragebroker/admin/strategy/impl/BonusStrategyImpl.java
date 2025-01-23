@@ -14,9 +14,8 @@ public class BonusStrategyImpl implements TransactionStrategy {
     public void beforeSave(WalletModel model) {
 
     }
-
     @Override
-    public void afterSave(WalletModel model) {
+    public void afterSave(WalletModel newModedl, WalletModel oldModel) {
 
     }
 }

@@ -111,7 +111,7 @@ public class WalletServiceImpl extends BaseServiceImpl<WalletFilter,WalletModel,
         var transactionStrategy = transactionStrategyFactory.get(model.getTransactionType());
         transactionStrategy.beforeSave(model);
         var result = super.create(model);
-        transactionStrategy.afterSave(model);
+        transactionStrategy.afterSave(model, new WalletModel());
         return result;
     }
 
@@ -123,8 +123,9 @@ public class WalletServiceImpl extends BaseServiceImpl<WalletFilter,WalletModel,
             entity.setUser(entityManager.getReference(entity.getUser().getClass(), model.getUser().getId()));
         var transactionStrategy = transactionStrategyFactory.get(model.getTransactionType());
         transactionStrategy.beforeSave(model);
+        var oldModel = findById(model.getId());
         var result = mapper.toModel(repository.save(mapper.updateEntity(model, entity)));
-        transactionStrategy.afterSave(result);
+        transactionStrategy.afterSave(result, oldModel);
         return result;
     }
 

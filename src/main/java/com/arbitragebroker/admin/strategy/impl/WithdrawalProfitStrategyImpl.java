@@ -80,29 +80,28 @@ public class WithdrawalProfitStrategyImpl implements TransactionStrategy {
     }
 
     @Override
-    public void afterSave(WalletModel model) {
-        var entity = walletRepository.findById(model.getId()).orElseThrow(()-> new NotFoundException("Transaction not found"));
-        if(model.getStatus().equals(EntityStatusType.Active) && !entity.getStatus().equals(EntityStatusType.Active)) {
-            var balance = walletRepository.calculateUserBalance(model.getUser().getId());
-            var currentSubscription = subscriptionService.findByUserAndActivePackage(model.getUser().getId());
+    public void afterSave(WalletModel newModedl,WalletModel oldModel) {
+        if(newModedl.getStatus().equals(EntityStatusType.Active) && !oldModel.getStatus().equals(EntityStatusType.Active)) {
+            var balance = walletRepository.calculateUserBalance(newModedl.getUser().getId());
+            var currentSubscription = subscriptionService.findByUserAndActivePackage(newModedl.getUser().getId());
             var nextSubscriptionPackage = subscriptionPackageService.findMatchedPackageByAmount(balance);
             if(nextSubscriptionPackage == null)
                 subscriptionService.logicalDeleteById(currentSubscription.getId());
             else if (currentSubscription == null || !currentSubscription.getSubscriptionPackage().getId().equals(nextSubscriptionPackage.getId())) {
-                subscriptionService.create(new SubscriptionModel().setSubscriptionPackage(nextSubscriptionPackage).setUser(model.getUser()).setStatus(EntityStatusType.Active));
+                subscriptionService.create(new SubscriptionModel().setSubscriptionPackage(nextSubscriptionPackage).setUser(newModedl.getUser()).setStatus(EntityStatusType.Active));
             }
-            notificationService.sendTransactionNotification(model);
+            notificationService.sendTransactionNotification(newModedl);
             try {
-                mailService.sendTransactionMail(model);
+                mailService.sendTransactionMail(newModedl);
             } catch (Exception ignored){}
 
-            var user = userService.findById(model.getUser().getId());
+            var user = userService.findById(newModedl.getUser().getId());
             telegramService.sendToRole(user.getRole(), """
                 *Activated Transaction*\n
                 Date : %s\n
                 User : %s\n
                 Type : Withdrawal Profit\n
-                Amount : %s""".formatted(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()), user.getSelectTitle(), model.getAmount().toString()));
+                Amount : %s""".formatted(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()), user.getSelectTitle(), newModedl.getAmount().toString()));
         }
     }
 }

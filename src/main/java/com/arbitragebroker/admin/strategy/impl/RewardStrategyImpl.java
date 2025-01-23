@@ -16,7 +16,7 @@ public class RewardStrategyImpl implements TransactionStrategy {
     }
 
     @Override
-    public void afterSave(WalletModel model) {
+    public void afterSave(WalletModel newModedl, WalletModel oldModel) {
 
     }
 }
