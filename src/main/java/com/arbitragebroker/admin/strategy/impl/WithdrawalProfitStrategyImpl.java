@@ -4,6 +4,7 @@ import com.arbitragebroker.admin.enums.CurrencyType;
 import com.arbitragebroker.admin.enums.EntityStatusType;
 import com.arbitragebroker.admin.exception.InsufficentBalanceException;
 import com.arbitragebroker.admin.exception.NotAcceptableException;
+import com.arbitragebroker.admin.exception.NotFoundException;
 import com.arbitragebroker.admin.model.SubscriptionModel;
 import com.arbitragebroker.admin.model.WalletModel;
 import com.arbitragebroker.admin.repository.WalletRepository;
@@ -56,7 +57,8 @@ public class WithdrawalProfitStrategyImpl implements TransactionStrategy {
         if (model.getAmount().compareTo(new BigDecimal(minWithdrawAmount)) < 0)
             throw new InsufficentBalanceException(String.format("Your requested amount %s should greater than %s", model.getAmount().toString(), minWithdrawAmount));
 
-        if(model.getStatus().equals(EntityStatusType.Active)) {
+        var entity = walletRepository.findById(model.getId()).orElseThrow(()-> new NotFoundException("Transaction not found"));
+        if(model.getStatus().equals(EntityStatusType.Active) && !entity.getStatus().equals(EntityStatusType.Active)) {
             synchronized (model.getUser().getId().toString().intern()) {
                 BigDecimal totalDepositOfSubUsersPercentage = walletRepository.totalBalanceOfSubUsers(model.getUser().getId()).multiply(new BigDecimal(subUserPercentage));
                 BigDecimal totalDepositOfMinePercentage = walletRepository.totalBalanceByUserId(model.getUser().getId()).multiply(new BigDecimal(userPercentage));
@@ -79,7 +81,8 @@ public class WithdrawalProfitStrategyImpl implements TransactionStrategy {
 
     @Override
     public void afterSave(WalletModel model) {
-        if (model.getStatus().equals(EntityStatusType.Active)) {
+        var entity = walletRepository.findById(model.getId()).orElseThrow(()-> new NotFoundException("Transaction not found"));
+        if(model.getStatus().equals(EntityStatusType.Active) && !entity.getStatus().equals(EntityStatusType.Active)) {
             var balance = walletRepository.calculateUserBalance(model.getUser().getId());
             var currentSubscription = subscriptionService.findByUserAndActivePackage(model.getUser().getId());
             var nextSubscriptionPackage = subscriptionPackageService.findMatchedPackageByAmount(balance);

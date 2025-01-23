@@ -42,7 +42,8 @@ public class DepositStrategyImpl implements TransactionStrategy {
 
     @Override
     public void afterSave(WalletModel model) {
-        if (model.getStatus().equals(EntityStatusType.Active)) {
+        var entity = walletRepository.findById(model.getId()).orElseThrow(()-> new NotFoundException("Transaction not found"));
+        if(model.getStatus().equals(EntityStatusType.Active) && !entity.getStatus().equals(EntityStatusType.Active)) {
             var balance = walletRepository.calculateUserBalance(model.getUser().getId());
             var currentSubscription = subscriptionService.findByUserAndActivePackage(model.getUser().getId());
 
