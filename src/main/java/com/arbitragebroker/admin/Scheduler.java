@@ -106,14 +106,16 @@ public class Scheduler {
     @Scheduled(cron = "0 0 0 * * ?") // Cron expression for midnight
     public void deactivateSilentUsers() {
         subscriptionService.findAllExpiredFreeSubscriptions().forEach(sm -> {
-            var withdrawalProfit = new WalletEntity();
-            withdrawalProfit.setStatus(EntityStatusType.Active);
-            withdrawalProfit.setUser(new UserEntity().setUserId(sm.getUser().getId()));
-            withdrawalProfit.setAmount(new BigDecimal(selfFreeBonusAmount));
-            withdrawalProfit.setActualAmount(new BigDecimal(selfFreeBonusAmount));
-            withdrawalProfit.setTransactionType(TransactionType.WITHDRAWAL_PROFIT);
-            withdrawalProfit.setRole(sm.getUser().getRole());
-            walletRepository.save(withdrawalProfit);
+            if(walletRepository.countByUserIdAndTransactionTypeAndStatus(sm.getUser().getId(), TransactionType.WITHDRAWAL_PROFIT, EntityStatusType.Active) == 0) {
+                var withdrawalProfit = new WalletEntity();
+                withdrawalProfit.setStatus(EntityStatusType.Active);
+                withdrawalProfit.setUser(new UserEntity().setUserId(sm.getUser().getId()));
+                withdrawalProfit.setAmount(new BigDecimal(selfFreeBonusAmount));
+                withdrawalProfit.setActualAmount(new BigDecimal(selfFreeBonusAmount));
+                withdrawalProfit.setTransactionType(TransactionType.WITHDRAWAL_PROFIT);
+                withdrawalProfit.setRole(sm.getUser().getRole());
+                walletRepository.save(withdrawalProfit);
+            }
         });
         userService.findAllSilentUsers(LocalDateTime.now().minusDays(30L)).forEach(user->{
             if (userService.countAllActiveChild(user.getId()) == 0) {
