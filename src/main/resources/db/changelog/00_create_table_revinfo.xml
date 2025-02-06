@@ -23,4 +23,11 @@
             CREATE EXTENSION IF NOT EXISTS "uuid-ossp";/
         </sql>
     </changeSet>
+    <changeSet id="00-4" author="administrator">
+        <createSequence incrementBy="50" sequenceName="revinfo_seq" startValue="1"/>
+        <sql dbms="postgresql">select setval('revinfo_seq', max(rev)) from REVINFO</sql>
+        <sql dbms="h2">alter sequence revinfo_seq restart with (select max(rev) from REVINFO)</sql>
+        <sql dbms="postgresql">select setval('revinfo_rev_seq', max(rev)) from REVINFO</sql>
+        <sql dbms="h2">alter sequence revinfo_rev_seq restart with (select max(rev) from REVINFO)</sql>
+    </changeSet>
 </databaseChangeLog>
