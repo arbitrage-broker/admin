@@ -2,7 +2,7 @@ package com.arbitragebroker.admin.entity;
 
 import lombok.Data;
 
-import javax.persistence.*;
+import jakarta.persistence.*;
 
 @Data
 @Entity

@@ -11,9 +11,7 @@ import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Service;
 
-import javax.mail.internet.MimeMessage;
-
-import static com.arbitragebroker.admin.util.MapperHelper.getOrDefault;
+import jakarta.mail.internet.MimeMessage;
 
 @Service
 @Slf4j
@@ -24,7 +22,7 @@ public class MailServiceImpl extends BaseMailService {
     String siteUrl;
 
     public MailServiceImpl(UserService userService, MessageConfig messages, OneTimePasswordService oneTimePasswordService,
-                           ResourceLoader resourceLoader,JavaMailSender mailSender) {
+                           ResourceLoader resourceLoader, JavaMailSender mailSender) {
         super(userService, messages, oneTimePasswordService, resourceLoader);
         this.mailSender = mailSender;
     }
@@ -37,7 +35,7 @@ public class MailServiceImpl extends BaseMailService {
             helper.setText(body, true);
             helper.setTo(to);
             helper.setSubject(subject);
-            helper.setFrom("noreply@" + siteUrl, "Support");
+            helper.setFrom("admin@" + siteUrl, "Support");
             mailSender.send(mimeMessage);
         } catch (Exception e) {
             log.error("failed to send email. {}", e.getMessage());

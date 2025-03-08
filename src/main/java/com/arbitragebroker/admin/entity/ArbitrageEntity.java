@@ -3,7 +3,7 @@ package com.arbitragebroker.admin.entity;
 import com.arbitragebroker.admin.enums.CurrencyType;
 import lombok.Data;
 
-import javax.persistence.*;
+import jakarta.persistence.*;
 import java.math.BigDecimal;
 
 import static com.arbitragebroker.admin.util.MapperHelper.getOrDefault;

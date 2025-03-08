@@ -1,8 +1,9 @@
 package com.arbitragebroker.admin.config;
 
+import com.arbitragebroker.admin.dto.UserDetailDto;
 import com.arbitragebroker.admin.enums.RoleType;
-import com.arbitragebroker.admin.service.UserService;
-import com.arbitragebroker.admin.util.SessionHolder;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import org.slf4j.MDC;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.web.DefaultRedirectStrategy;
@@ -11,26 +12,20 @@ import org.springframework.security.web.authentication.AuthenticationSuccessHand
 import org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestWrapper;
 import org.springframework.stereotype.Component;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 @Component
 public class SuccessLoginConfig implements AuthenticationSuccessHandler {
-    private final UserService userService;
     private RedirectStrategy redirectStrategy;
-    private SessionHolder sessionHolder;
 
-    public SuccessLoginConfig(UserService userService, SessionHolder sessionHolder) {
-        this.userService = userService;
-        this.sessionHolder = sessionHolder;
+    public SuccessLoginConfig() {
         this.redirectStrategy = new DefaultRedirectStrategy();
     }
+
     @Override
     public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws IOException {
-        var userModel = userService.findByUserName(authentication.getName());
-        sessionHolder.setCurrentUser(userModel);
-        MDC.put("userId",userModel.getId().toString());
+        UserDetailDto user = (UserDetailDto) authentication.getCredentials();
+        MDC.put("userId", user.getId().toString());
 
         SecurityContextHolderAwareRequestWrapper requestWrapper = new SecurityContextHolderAwareRequestWrapper(request, "");
         String targetUrl = "/dashboard";

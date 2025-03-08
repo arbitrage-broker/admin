@@ -3,7 +3,7 @@ package com.arbitragebroker.admin.model;
 import lombok.Data;
 import lombok.experimental.Accessors;
 
-import javax.validation.constraints.NotNull;
+import jakarta.validation.constraints.NotNull;
 
 @Data
 @Accessors(chain = true)

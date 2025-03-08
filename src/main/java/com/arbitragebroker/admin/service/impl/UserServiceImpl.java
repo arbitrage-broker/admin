@@ -1,5 +1,6 @@
 package com.arbitragebroker.admin.service.impl;
 
+import com.arbitragebroker.admin.dto.UserDetailDto;
 import com.arbitragebroker.admin.entity.CountryEntity;
 import com.arbitragebroker.admin.model.PageModel;
 import com.arbitragebroker.admin.model.UserModel;
@@ -58,11 +59,9 @@ public class UserServiceImpl extends BaseServiceImpl<UserFilter, UserModel, User
     }
     @Override
     @Cacheable(cacheNames = "${cache.prefix:app}", key = "'User:findByUserNameOrEmail:' + #login")
-    public UserModel findByUserNameOrEmail(String login) {
+    public UserDetailDto findByUserNameOrEmail(String login) {
         var entity = userRepository.findByUserNameOrEmail(login, login).orElseThrow(() -> new NotFoundException("User not found with username/email: " + login));
-        var model = mapper.toModel(entity);
-        model.setPassword(entity.getPassword());
-        return model;
+        return new UserDetailDto(entity);
     }
 
     @Override

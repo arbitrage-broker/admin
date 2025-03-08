@@ -9,8 +9,8 @@ import org.springframework.data.jpa.repository.QueryHints;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.persistence.LockModeType;
-import javax.persistence.QueryHint;
+import jakarta.persistence.LockModeType;
+import jakarta.persistence.QueryHint;
 import java.math.BigDecimal;
 import java.util.EnumSet;
 import java.util.List;
@@ -27,7 +27,7 @@ public interface WalletRepository extends BaseRepository<WalletEntity, Long> {
 //	BigDecimal totalBalanceByUserId(UUID userId);
 
 	@Lock(LockModeType.PESSIMISTIC_WRITE)
-	@QueryHints({@QueryHint(name = "javax.persistence.lock.timeout", value = "3000")})
+	@QueryHints({@QueryHint(name = "jakarta.persistence.lock.timeout", value = "3000")})
 	@Query("select w from WalletEntity w where w.user.id = :userId and w.status = com.arbitragebroker.admin.enums.EntityStatusType.Active")
 	List<WalletEntity> findAllActiveByUserId(UUID userId);
 

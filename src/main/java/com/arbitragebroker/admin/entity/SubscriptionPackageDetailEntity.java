@@ -3,11 +3,11 @@ package com.arbitragebroker.admin.entity;
 import lombok.Data;
 import org.hibernate.envers.Audited;
 
-import javax.persistence.*;
+import jakarta.persistence.*;
 import java.math.BigDecimal;
 
 import static com.arbitragebroker.admin.util.MapperHelper.getOrDefault;
-import static javax.persistence.FetchType.EAGER;
+import static jakarta.persistence.FetchType.EAGER;
 
 @Data
 @Entity

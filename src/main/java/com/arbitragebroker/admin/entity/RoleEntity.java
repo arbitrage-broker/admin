@@ -3,7 +3,7 @@ package com.arbitragebroker.admin.entity;
 import lombok.Data;
 import org.hibernate.envers.Audited;
 
-import javax.persistence.*;
+import jakarta.persistence.*;
 
 @Data
 @Entity

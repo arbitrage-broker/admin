@@ -12,7 +12,7 @@ import org.springframework.data.envers.repository.support.EnversRevisionReposito
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.scheduling.annotation.EnableScheduling;
 
-import javax.annotation.PostConstruct;
+import jakarta.annotation.PostConstruct;
 import java.net.InetAddress;
 import java.util.Objects;
 
@@ -34,19 +34,22 @@ public class Application {
     @PostConstruct
     private void postConstruct() {
         String protocol = "https";
-        if (Objects.isNull(environment.getProperty("server.ssl.key-store"))) {
+        if (!environment.containsProperty("server.ssl.key-store")) {
             protocol = "http";
         }
-        String port = environment.getProperty("server.port");
-        String appName = environment.getProperty("spring.application.name");
-        String url = protocol.concat("://localhost:").concat(port).concat("/swagger");
+        String port = environment.getProperty("server.port","2024");
+        String appName = environment.getProperty("spring.application.name","Admin");
+        String localUrl = "%s://localhost:%s/swagger".formatted(protocol, port);
+        String externalUrl = "%s://%s:%s/swagger".formatted(protocol,InetAddress.getLocalHost().getHostAddress(), port);
 
-        log.info("\n----------------------------------------------------------\n\t"
-                        + "Application '{}' is running! Access URLs:\n\t" + "Local: \t\t{}\n\t"
-                        + "External: \t{}://{}:{}\n\t"
-                        + "Profile(s): {}\n----------------------------------------------------------",
-                appName, url, protocol,
-                InetAddress.getLocalHost().getHostAddress(), port, environment.getActiveProfiles());
+        log.info("""
+                ----------------------------------------------------------
+                \tApplication '{}' is running! Access URLs:
+                \tLocal: \t\t{}
+                \tExternal: \t{}
+                \tProfile(s): {}
+                ----------------------------------------------------------
+                """,  appName, localUrl, externalUrl, environment.getActiveProfiles());
 
 
         /*if (Desktop.isDesktopSupported()) {

@@ -4,36 +4,48 @@ package com.arbitragebroker.admin.controller;
 import com.arbitragebroker.admin.config.MessageConfig;
 import com.arbitragebroker.admin.enums.RoleType;
 import com.arbitragebroker.admin.model.UserModel;
+import com.arbitragebroker.admin.util.CustomObjectMapper;
 import com.arbitragebroker.admin.util.SessionHolder;
 import com.arbitragebroker.admin.service.UserService;
 import lombok.AllArgsConstructor;
+import lombok.SneakyThrows;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.validation.Valid;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.validation.Valid;
 
 
 @Controller
-@AllArgsConstructor
 public class LoginController {
 
     final MessageConfig messages;
     final SessionHolder sessionHolder;
     final HttpServletRequest request;
     final UserService userService;
+    final CustomObjectMapper objectMapper;
 
+    public LoginController(MessageConfig messages, SessionHolder sessionHolder, HttpServletRequest request, UserService userService) {
+        this.messages = messages;
+        this.sessionHolder = sessionHolder;
+        this.request = request;
+        this.userService = userService;
+        this.objectMapper = new CustomObjectMapper();
+    }
+
+    @SneakyThrows
     @RequestMapping(value = "/{name}", method = RequestMethod.GET)
     public ModelAndView loadPage(@PathVariable String name) {
         if (name == null || name.isEmpty() || name.equals("favicon.ico"))
             return new ModelAndView("dashboard");
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+
         UserModel user = sessionHolder.getCurrentUser();
         ModelAndView modelAndView = new ModelAndView(name);
-        modelAndView.addObject("currentUser", sessionHolder.getCurrentUserAsJsonString());
+        var userAsString = user != null ? objectMapper.writeValueAsString(user) : "{}";
+        modelAndView.addObject("currentUser", userAsString);
         modelAndView.addObject("fullName", user.getFirstName() + " " + user.getLastName());
         modelAndView.addObject("pageTitle", messages.getMessage(name));
         modelAndView.addObject("errorMsg", null);

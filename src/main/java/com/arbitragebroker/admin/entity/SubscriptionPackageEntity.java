@@ -5,7 +5,7 @@ import com.arbitragebroker.admin.enums.EntityStatusType;
 import lombok.Data;
 import org.hibernate.envers.Audited;
 
-import javax.persistence.*;
+import jakarta.persistence.*;
 import java.math.BigDecimal;
 
 @Data

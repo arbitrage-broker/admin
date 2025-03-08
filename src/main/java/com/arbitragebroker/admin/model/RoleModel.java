@@ -1,14 +1,36 @@
 package com.arbitragebroker.admin.model;
 
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
+import java.util.Objects;
 
 @Data
+@NoArgsConstructor
 public class RoleModel extends BaseModel<Long> {
 	@NotNull
 	@NotBlank
 	private String role;
 	private String title;
+
+	public RoleModel(Long id, String role, String title) {
+		setId(id);
+		this.role = role;
+		this.title = title;
+	}
+
+	@Override
+	public boolean equals(Object o) {
+		if (this == o) return true;
+		if (o == null || getClass() != o.getClass()) return false;
+		var that = (RoleModel) o;
+		return Objects.equals(getId(), that.getId());
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(getId());
+	}
 }

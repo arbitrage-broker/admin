@@ -7,8 +7,8 @@ import com.arbitragebroker.admin.enums.TransactionType;
 import lombok.Data;
 import org.hibernate.envers.Audited;
 
-import javax.persistence.*;
-import javax.validation.constraints.NotNull;
+import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
 import java.math.BigDecimal;
 import java.time.format.DateTimeFormatter;
 

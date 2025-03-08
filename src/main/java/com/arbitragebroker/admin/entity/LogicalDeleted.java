@@ -1,7 +1,7 @@
 package com.arbitragebroker.admin.entity;
 
-import javax.persistence.Column;
-import javax.persistence.Transient;
+import jakarta.persistence.Column;
+import jakarta.persistence.Transient;
 
 public interface LogicalDeleted {
     /**

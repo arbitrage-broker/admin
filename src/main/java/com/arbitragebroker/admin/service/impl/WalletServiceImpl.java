@@ -28,11 +28,12 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
 
 import java.math.BigDecimal;
+import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-import static com.arbitragebroker.admin.util.DateUtil.toLocalDate;
+import static com.arbitragebroker.admin.util.DateUtil.*;
 import static com.arbitragebroker.admin.util.MapperHelper.get;
 import static com.arbitragebroker.admin.util.MapperHelper.getOrDefault;
 
@@ -203,17 +204,17 @@ public class WalletServiceImpl extends BaseServiceImpl<WalletFilter,WalletModel,
     @Override
     public Map<Long, BigDecimal> findAllWithinDateRange(long startDate, long endDate, TransactionType transactionType) {
         QWalletEntity path = QWalletEntity.walletEntity;
-        DateTemplate<Date> truncatedDate = Expressions.dateTemplate(Date.class, "date_trunc('day', {0})", path.createdDate);
+        DateTemplate<LocalDateTime> truncatedDate = Expressions.dateTemplate(LocalDateTime.class, "date_trunc('day', {0})", path.createdDate);
         var results = queryFactory.select(truncatedDate, path.amount.sum())
                 .from(path)
-                .where(truncatedDate.between(new Date(startDate),new Date(endDate)))
+                .where(truncatedDate.between(toLocalDateTime(startDate),toLocalDateTime(endDate)))
                 .where(path.transactionType.eq(transactionType))
                 .where(path.user.roles.any().id.eq(2L))
                 .groupBy(truncatedDate)
                 .orderBy(truncatedDate.asc())
                 .fetch();
         Map<Long, BigDecimal> map = results.stream()
-                .collect(Collectors.toMap(tuple -> tuple.get(truncatedDate).getTime(), tuple -> tuple.get(path.amount.sum())));
+                .collect(Collectors.toMap(tuple -> toEpoch(tuple.get(truncatedDate)), tuple -> tuple.get(path.amount.sum())));
 
         var allDates = toLocalDate(startDate).datesUntil(toLocalDate(endDate).plusDays(1)).map(DateUtil::toEpoch);
 
