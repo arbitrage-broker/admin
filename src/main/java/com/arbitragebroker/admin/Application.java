@@ -6,15 +6,15 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfiguration;
+import org.springframework.boot.context.event.ApplicationReadyEvent;
 import org.springframework.context.annotation.Profile;
+import org.springframework.context.event.EventListener;
 import org.springframework.core.env.Environment;
 import org.springframework.data.envers.repository.support.EnversRevisionRepositoryFactoryBean;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.scheduling.annotation.EnableScheduling;
 
-import jakarta.annotation.PostConstruct;
 import java.net.InetAddress;
-import java.util.Objects;
 
 @SpringBootApplication(exclude = {SecurityAutoConfiguration.class})
 @Slf4j
@@ -31,7 +31,7 @@ public class Application {
 
     @Profile("dev")
     @SneakyThrows
-    @PostConstruct
+    @EventListener(ApplicationReadyEvent.class)
     private void postConstruct() {
         String protocol = "https";
         if (!environment.containsProperty("server.ssl.key-store")) {
@@ -39,8 +39,8 @@ public class Application {
         }
         String port = environment.getProperty("server.port","2024");
         String appName = environment.getProperty("spring.application.name","Admin");
-        String localUrl = "%s://localhost:%s/swagger".formatted(protocol, port);
-        String externalUrl = "%s://%s:%s/swagger".formatted(protocol,InetAddress.getLocalHost().getHostAddress(), port);
+        String localUrl = "%s://localhost:%s/swagger-ui.html".formatted(protocol, port);
+        String externalUrl = "%s://%s:%s/swagger-ui.html".formatted(protocol,InetAddress.getLocalHost().getHostAddress(), port);
 
         log.info("""
                 ----------------------------------------------------------
